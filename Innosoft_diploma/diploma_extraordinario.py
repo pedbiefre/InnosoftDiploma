@@ -17,6 +17,10 @@ def processPDF(nombre, apellidos,titulo,fecha):
   c.drawString(100, 620, ("Fecha: " + str(fecha.get())))
   c.save()
 
+#*****************NO BORRAR*****************
+#PARA LINUX: os.system("evince /home/diego123/Escritorio/Formulario.pdf &")  
+#PARA WINDOWS: os.system("start AcroRD32 ruta_y_archivo.pdf &")
+  
   os.system("evince /home/blackylyzard/Formulario.pdf")
 
 def diplomasExt():
