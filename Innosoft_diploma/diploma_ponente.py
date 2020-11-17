@@ -4,14 +4,16 @@ import time
 from tkinter import *
 
 from reportlab.lib.pagesizes import landscape, A4, inch
+from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
 
 def processPDFPonente(nombre, apellidos, motivo, fecha):
+    pdfmetrics.registerFont(TTFont('Philosopher', '/home/blackylyzard/philosopher/Philosopher-Italic.ttf'))
     c = canvas.Canvas("/home/blackylyzard/Formulario.pdf", pagesize=landscape(A4))
     c.drawImage("/home/blackylyzard/Descargas/DiplomaPonente.jpg", 0, 0, width=11.6 * inch, height=8.4 * inch)
-    c.setFont('Helvetica', 30)
+    c.setFont('Philosopher', 27)
     c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
     c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
     c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
