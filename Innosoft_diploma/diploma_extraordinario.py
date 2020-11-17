@@ -10,14 +10,17 @@ from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
-def processPDF(nombre, apellidos,motivo,fecha):
+from Innosoft_diploma.diploma_ponente import *
+
+
+def processPDFExcepcional(nombre, apellidos,motivo,fecha):
   c = canvas.Canvas("/home/blackylyzard/Formulario.pdf", pagesize=landscape(A4))
-  c.drawImage("/home/blackylyzard/Descargas/DiplomaExcepcional.jpg", 0, 0,width=11.6*inch,height=8.4*inch)
+  c.drawImage("/home/blackylyzard/Descargas/DiplomaExcepcional.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
   c.setFont('Helvetica', 30)
-  c.drawString(4.75*inch, 4.7*inch, (str(nombre.get())))
-  c.drawString(4.5*inch, 4.1*inch, (str(apellidos.get())))
-  c.drawString(4.4*inch, 3*inch, (str(motivo.get())))
-  c.drawString(100, -620, ("Fecha: " + str(fecha.get())))
+  c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
+  c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
+  c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
+  c.drawCentredString(5.75 * inch, 1.9 * inch, (str(fecha.get())))
   c.save()
 
 #*****************NO BORRAR*****************
@@ -60,14 +63,16 @@ def diplomasExt():
   entry4.grid(row=3, column=1, padx=5, pady=5)
 
 
-  boton = Button(wind1, text="Procesar", command=lambda:processPDF(nombre, apellidos, motivo, fecha))
+  boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha))
   boton.grid(row=4, column=2)
+
 
 
 def mainInterface():
   root = Tk()
   Button(root, text="Diplomas Asistencia", command=None).pack()
 
+  Button(root, text="Diplomas Ponentes", command=diplomasPon).pack()
   Button(root, text="Diplomas Extraordinarios", command=diplomasExt).pack()
 
   root.mainloop()
