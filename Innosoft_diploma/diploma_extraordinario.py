@@ -6,15 +6,18 @@ import os
 import time
 from tkinter import *
 
+from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfgen import canvas
+from reportlab.pdfbase.ttfonts import TTFont
 
-def processPDF(nombre, apellidos,titulo,fecha):
-  c = canvas.Canvas("/home/blackylyzard/Formulario.pdf")
-  c.drawString(100, 750, "DIPLOMA EXTRAORDINARIO INNOSOFT")
-  c.drawString(100, 700, ("Nombre: " + str(nombre.get())))
-  c.drawString(100, 680, ("Apellidos: " + str(apellidos.get())))
-  c.drawString(100, 660, ("Observaciones: " + str(titulo.get())))
-  c.drawString(100, 620, ("Fecha: " + str(fecha.get())))
+def processPDF(nombre, apellidos,motivo,fecha):
+  c = canvas.Canvas("/home/blackylyzard/Formulario.pdf", pagesize=landscape(A4))
+  c.drawImage("/home/blackylyzard/Descargas/DiplomaExcepcional.jpg", 0, 0,width=11.6*inch,height=8.4*inch)
+  c.setFont('Helvetica', 30)
+  c.drawString(4.75*inch, 4.7*inch, (str(nombre.get())))
+  c.drawString(4.5*inch, 4.1*inch, (str(apellidos.get())))
+  c.drawString(4.4*inch, 3*inch, (str(motivo.get())))
+  c.drawString(100, -620, ("Fecha: " + str(fecha.get())))
   c.save()
 
   os.system("evince /home/blackylyzard/Formulario.pdf")
@@ -24,7 +27,7 @@ def diplomasExt():
 
   nombre = StringVar()
   apellidos = StringVar()
-  titulo = StringVar()
+  motivo = StringVar()
   fecha = StringVar(wind1, value=time.strftime("%d/%m/%y"))
 
 
@@ -40,10 +43,10 @@ def diplomasExt():
   entry2 = Entry(wind1, textvariable=apellidos)
   entry2.grid(row=1, column=1, padx=5, pady=5)
 
-  label3 = Label(wind1, text="Título")
+  label3 = Label(wind1, text="Motivo")
   label3.grid(row=2, column=0, sticky=W, padx=5, pady=5)
 
-  entry3 = Entry(wind1, textvariable=titulo)
+  entry3 = Entry(wind1, textvariable=motivo)
   entry3.grid(row=2, column=1, padx=5, pady=5)
 
   label4 = Label(wind1, text="Fecha")
@@ -53,7 +56,7 @@ def diplomasExt():
   entry4.grid(row=3, column=1, padx=5, pady=5)
 
 
-  boton = Button(wind1, text="Procesar", command=lambda:processPDF(nombre, apellidos, titulo, fecha))
+  boton = Button(wind1, text="Procesar", command=lambda:processPDF(nombre, apellidos, motivo, fecha))
   boton.grid(row=4, column=2)
 
 
