@@ -3,6 +3,8 @@ import os
 import time
 from tkinter import *
 
+from PIL import ImageTk, Image
+
 from app.diploma_automatico import diplomasGenerador
 from app.diploma_extraordinario import diplomasExt
 from app.diploma_ponente import diplomasPon
@@ -29,7 +31,12 @@ def ventana_principal():
     raiz.title("Innosoft Diplomas")
     raiz.config(menu=menu)
     raiz.geometry('800x200')
-    raiz.iconbitmap("./resources/images/innosoft.ico")
+
+    img = ImageTk.PhotoImage(Image.open('/home/blackylyzard/Escritorio/EJmC4M8W4AEf0d7.jpg'))
+    canvas = Canvas(raiz, width=800, height=200)
+    canvas.pack()
+    canvas.create_image(0,0,anchor=NW, image=img)
+    panel = Label(raiz, image=img)
     raiz.mainloop()
 
 if __name__ == "__main__":

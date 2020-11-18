@@ -21,13 +21,14 @@ def pdfAutomatico(nombre, apellidos,eventos_asistidos,horas_totales):
     c.setFont('Philosopher', 27)
     c.drawCentredString(5.75 * inch, 4.7 * inch, (nombre))
     c.drawCentredString(5.75 * inch, 4.1 * inch, (apellidos))
-    c.drawCentredString(5.75 * inch, 3 * inch, (str(eventos_asistidos)))
-    c.drawCentredString(5.75 * inch, 1.9 * inch, (str(horas_totales)))
+    c.drawCentredString(4.2 * inch, 3.55 * inch, (str(eventos_asistidos)))
+    c.drawCentredString(6.8 * inch, 2.9 * inch, (str(horas_totales)))
+    c.drawCentredString(5.75 * inch, 1.9 * inch, (time.strftime("%d/%m/%y")))
     c.save()
 
 def diplomasGenerador():
 
-    filename = filedialog.askopenfilename(initialdir = "/",title = "Seleccione el fichero con los datos de asistencia",filetype = [("Excel files", "*.xlsx")])
+    filename = filedialog.askopenfilename(initialdir = "/",title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
     df = pd.read_excel(filename,  header=None)
     numero_filas = df.shape[0]
     contador = 0
