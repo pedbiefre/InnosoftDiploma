@@ -1,0 +1,18 @@
+#TODO para Innosoft 2020
+
+Ajustar campos a las plantillas de los diplomas
+
+Manual de uso sencillo (especificar claramente que en Evidentia el excel se exporte con todos los campos activados)
+
+Estética de la interfaz
+
+(TODA MEJORA DE CÓDIGO REQUERIRÁ LA POSTERIOR GENERACIÓN DEL EXE)
+
+
+#TODO para Innosoft 2021
+
+Automatización ponentes?
+
+Seleccionar carpetas donde guardar los diplomas
+
+Exportación de eventos con nombre
