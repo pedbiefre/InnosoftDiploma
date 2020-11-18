@@ -2,7 +2,7 @@
 Herramienta de generación de diplomas para las jornadas de Innosoft de la Universidad de Sevilla.
 La herramienta utiliza archivos generados mediante la plataforma [Evidentia](https://github.com/drorganvidez/evidentia)
 
-# Manual de uso
+# Requisitos de uso
 
 ### Preparación para el uso
 Para el correcto funcionamiento de la aplicación, es necesario descargar la carpeta **InnosoftDiplomas** al completo, en la cual se encuentra un archivo .exe que **NO** debe moverse de la ruta por defecto.
