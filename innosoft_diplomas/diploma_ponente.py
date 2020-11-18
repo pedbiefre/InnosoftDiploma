@@ -16,6 +16,7 @@ def processPDFPonente(nombre, apellidos, motivo, fecha):
     c = canvas.Canvas("./Diplomas/DiplomasPonentes/Diploma Ponente " + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
     c.drawImage("./resources/images/Diploma Ponente.jpg", 0, 0, width=11.6 * inch, height=8.4 * inch)
     c.setFont('Philosopher', 27)
+    c.setTitle('Diploma Ponente - ' + nombre.get() + apellidos.get())
     c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
     c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
     c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))

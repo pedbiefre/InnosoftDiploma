@@ -5,9 +5,9 @@ from tkinter import *
 
 from PIL import ImageTk, Image
 
-from app.diploma_automatico import diplomasGenerador
-from app.diploma_extraordinario import diplomasExt
-from app.diploma_ponente import diplomasPon
+from innosoft_diplomas.diploma_automatico import diplomasGenerador
+from innosoft_diplomas.diploma_extraordinario import diplomasExt
+from innosoft_diplomas.diploma_ponente import diplomasPon
 
 def ventana_principal():  
     raiz = Tk()
