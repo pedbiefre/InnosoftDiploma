@@ -19,7 +19,7 @@ def pdfAutomatico(nombre, apellidos,eventos_asistidos,horas_totales):
     c = canvas.Canvas("./Diplomas/DiplomasAutomaticos/Diploma-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
     c.drawImage("./resources/images/Diploma Automatico.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
     c.setFont('Philosopher', 27)
-    c.setTitle('Diploma - ' + nombre.get() + apellidos.get())
+    c.setTitle('Diploma - ' + nombre + apellidos)
     c.drawCentredString(5.75 * inch, 4.7 * inch, (nombre))
     c.drawCentredString(5.75 * inch, 4.1 * inch, (apellidos))
     c.drawCentredString(4.2 * inch, 3.55 * inch, (str(eventos_asistidos)))
