@@ -2,6 +2,14 @@
 Herramienta de generación de diplomas para las jornadas de Innosoft de la Universidad de Sevilla.
 La herramienta utiliza archivos generados mediante la plataforma [Evidentia](https://github.com/drorganvidez/evidentia)
 
+Herramienta realizada por:
+* Alé Palacios, Francisco (fraalepal@alum.us.es)
+* Biedma Fresno, Pedro (pedbiefre@alum.us.es)
+* Gata Fernández, José Manuel (josgatfer@alum.us.es)
+* Losada Ostos, Guillermo (guilosost@alum.us.es)
+* Merino Verde, Enrique (enrmerver@alum.us.es)
+* Yanes Ariza, Miguel (migyanari@alum.us.es)
+
 # Requisitos de uso
 
 ### Preparación para el uso
