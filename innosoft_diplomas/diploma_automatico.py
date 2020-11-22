@@ -6,6 +6,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import filedialog
 import math
+import pathlib
 
 from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfbase import pdfmetrics
@@ -29,7 +30,7 @@ def pdfAutomatico(nombre, apellidos,eventos_asistidos,horas_totales):
 
 def diplomasGenerador():
 
-    filename = filedialog.askopenfilename(initialdir = "/",title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
+    filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
     df = pd.read_excel(filename,  header=None)
     numero_filas = df.shape[0]
     contador = 0
@@ -41,7 +42,7 @@ def diplomasGenerador():
         eventos_asistidos = columna[10]
         horas_totales = columna[17]
 
-        if horas_totales <= 1 or math.isnan(horas_totales):
+        if horas_totales <= 0 or math.isnan(horas_totales):
             continue
         pdfAutomatico(nombre, apellidos, eventos_asistidos, horas_totales)
         contador = contador + 1

@@ -28,39 +28,38 @@ def processPDFPonente(nombre, apellidos, motivo, fecha):
 
 def diplomasPon():
   wind1 = Toplevel()
+  wind1.title("Diploma Ponente")
 
   nombre = StringVar()
   apellidos = StringVar()
   motivo = StringVar()
   fecha = StringVar(wind1, value=time.strftime("%d/%m/%y"))
 
-
-  label = Label(wind1, text="Nombre Ponente")
+  label = Label(wind1, text="Nombre")
   label.grid(row=0, column=0, sticky=W, padx=5, pady=5)
 
   entry = Entry(wind1, textvariable=nombre)
-  entry.grid(row=0, column=1, padx=5, pady=5)
+  entry.grid(row=0, column=1, padx=5, pady=5, ipadx=25)
 
-  label2 = Label(wind1, text="Apellidos Ponente")
+  label2 = Label(wind1, text="Apellidos")
   label2.grid(row=1, column=0, sticky=W, padx=5, pady=5)
 
   entry2 = Entry(wind1, textvariable=apellidos)
-  entry2.grid(row=1, column=1, padx=5, pady=5)
+  entry2.grid(row=1, column=1, padx=5, pady=5, ipadx=25)
 
   label3 = Label(wind1, text="Motivo")
   label3.grid(row=2, column=0, sticky=W, padx=5, pady=5)
 
-  entry3 = Entry(wind1, textvariable=motivo)
-  entry3.grid(row=2, column=1, padx=5, pady=5)
+  entry3 = Text(wind1, height = 10, width = 25)
+  entry3.pack
 
   label4 = Label(wind1, text="Fecha")
   label4.grid(row=3, column=0, sticky=W, padx=5, pady=5)
 
   entry4 = Entry(wind1, textvariable=fecha)
-  entry4.grid(row=3, column=1, padx=5, pady=5)
+  entry4.grid(row=3, column=1, padx=5, pady=10, ipadx=25)
 
-
-  boton = Button(wind1, text="Procesar", command=lambda:processPDFPonente(nombre, apellidos, motivo, fecha))
-  boton.grid(row=4, column=2)
-
+  boton = Button(wind1, text="Procesar", command=lambda: processPDFExcepcional(nombre, apellidos, entry3, fecha))
+  boton.grid(row=5, column=0)
+  wind1.geometry('290x160')
   wind1.iconbitmap("./resources/images/innosoft.ico")

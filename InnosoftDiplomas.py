@@ -6,8 +6,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 from innosoft_diplomas.diploma_automatico import diplomasGenerador
-from innosoft_diplomas.diploma_extraordinario import diplomasExt
-from innosoft_diplomas.diploma_ponente import diplomasPon
+from innosoft_diplomas.diploma_excepcional import diplomasExc
 
 def ventana_principal():  
     raiz = Tk()
@@ -21,8 +20,9 @@ def ventana_principal():
 
     #DIPLOMAS EXTRAS
     menudatos = Menu(menu, tearoff=0)
-    menudatos.add_command(label="Diplomas Extraordinarios", command= diplomasExt)
-    menudatos.add_command(label="Diplomas Ponente", command= diplomasPon)
+    menudatos.add_command(label="Diplomas Extraordinarios", command= lambda: diplomasExc("extraordinario"))
+    menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente"))
+    menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador"))
     menu.add_cascade(label="Diplomas Especiales", menu=menudatos)
 
     #SALIR
