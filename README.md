@@ -13,7 +13,7 @@ Herramienta realizada por:
 # Requisitos de uso
 
 ### Preparación para el uso
-Para el correcto funcionamiento de la aplicación, es necesario descargar la carpeta **InnosoftDiplomas** al completo, en la cual se encuentra un archivo .exe que **NO** debe moverse de la ruta por defecto.
+Para el correcto funcionamiento de la aplicación, es necesario descargar la carpeta **InnosoftDiploma** al completo y el archivo .exe del siguiente enlace: https://mega.nz/file/spxmCYQZ#BW-5sxYzJjbD5UWdk8Lyo_Gq_LciNodiibAjYA_7-c8, el cual se deberá meter en la carpeta y **NO** deberá moverse de esta ruta.
 
 ### Archivos necesarios para la generación de diplomas
 Para exportar en Evidentia el archivo .xlsx requerido para generar automáticamente los diplomas de asistencia, habrá que estar conectado con la cuenta de **Profesor**, acceder a **Exportaciones** y dejar seleccionadas **todas las opciones**
