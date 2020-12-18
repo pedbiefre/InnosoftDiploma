@@ -12,9 +12,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
-def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo):
-  pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
 
+def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
+  print(parametros.get_fuente())
   if (tipo == "extraordinario"):
       path = "./Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
       resource = "./resources/images/Diploma Extraordinario.jpg"
@@ -30,7 +30,14 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo):
 
   c = canvas.Canvas(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
-  c.setFont('Philosopher', 27)
+
+  if parametros.get_fuente() == 'Philosopher':
+    pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
+    c.setFont('Philosopher', 27)
+  elif parametros.get_fuente() == 'Abecedary':
+    pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
+    c.setFont('Abecedary', 27)
+
   c.setTitle(title + nombre.get() + apellidos.get())
   c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
   c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
@@ -41,7 +48,7 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo):
   messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
 
-def diplomasExc(tipo):
+def diplomasExc(tipo, parametros):
   wind1 = Toplevel()
   if(tipo=="extraordinario"):
     wind1.title("Diploma Extraordinario")
@@ -85,7 +92,7 @@ def diplomasExc(tipo):
   entry4.grid(row=3, column=1, padx=5, pady=10, ipadx=25)
 
 
-  boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo))
+  boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros))
   boton.grid(row=5, column=0)
   wind1.geometry('290x160')
   wind1.iconbitmap("./resources/images/innosoft.ico")
