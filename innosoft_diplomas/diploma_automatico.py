@@ -44,9 +44,11 @@ def asistenciaAuxiliar(dataFrame):
         apellidos = columna[1]   
         nombre = columna[2]
         eventos_asistidos = columna[10]
-        horas_totales = columna[17]
-
-        if not(isinstance(horas_totales, int)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
+        try:
+            horas_totales = float(columna[17])
+        except:
+            continue
+        if not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
             continue
         pdfAutomaticoAsistencia(nombre, apellidos, eventos_asistidos, horas_totales)
         contador = contador + 1
