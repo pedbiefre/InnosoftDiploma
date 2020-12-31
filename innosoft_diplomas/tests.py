@@ -66,6 +66,11 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         apellidos = df.iloc[1].values[1]
         self.assertEqual("Alé Palacios", apellidos)
+
+    def testEventosAsistidos(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        eventos_asistidos = df.iloc[1].values[10]
+        self.assertEqual(10, eventos_asistidos)
     
     def testDiplomasAutomaticosOrganizador3Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
