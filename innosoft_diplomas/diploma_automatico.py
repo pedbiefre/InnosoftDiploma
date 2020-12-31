@@ -32,11 +32,15 @@ def diplomasGeneradorAsistencia():
 
     filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
     df = pd.read_excel(filename,  header=None)
-    numero_filas = df.shape[0]
+    contador = asistenciaAuxiliar(df)
+    messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de asistencia. Se han almacenado en /Diplomas/DiplomasAsistencia")
+
+def asistenciaAuxiliar(dataFrame):
+    numero_filas = dataFrame.shape[0]
     contador = 0
     for i in range (1,numero_filas):
         
-        columna = df.iloc[i].values
+        columna = dataFrame.iloc[i].values
         apellidos = columna[1]   
         nombre = columna[2]
         eventos_asistidos = columna[10]
@@ -46,8 +50,7 @@ def diplomasGeneradorAsistencia():
             continue
         pdfAutomaticoAsistencia(nombre, apellidos, eventos_asistidos, horas_totales)
         contador = contador + 1
-    messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de asistencia. Se han almacenado en /Diplomas/DiplomasAsistencia")
-
+    return contador
 
 def pdfAutomaticoOrganizador(nombre, apellidos,comite):
         
