@@ -1,6 +1,7 @@
 from unittest.case import TestCase
 import pandas as pd
 import unittest
+from diploma_automatico import organizadorAuxiliar
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
@@ -44,5 +45,6 @@ class DiplomaAutomaticoTestCase(TestCase):
         apellidos = df.iloc[1].values[1]
         self.assertEqual("Alé Palacios", apellidos)
     
-
-    
+    def testDiplomasAutomaticosOrganizador(self):
+        df = pd.read_excel("tests.xlsx", header=None)
+        self.assertEqual(3, organizadorAuxiliar(df))
