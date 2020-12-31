@@ -75,9 +75,7 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testHorasTotalesAsistidas(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         horas_totales = df.iloc[1].values[17]
-        self.assertEqual(10, horas_totales)
-
-        
+        self.assertEqual(10, horas_totales)       
     
     def testDiplomasAutomaticosOrganizador3Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
@@ -86,3 +84,8 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testDiplomasAutomaticosAsistencia7Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(7, asistenciaAuxiliar(df))
+
+    def testDiplomasAutomaticosAsistenciaHorasNegativas(self):
+        df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
+        #Las filas que son negativas no dan error, se saltan
+        self.assertEqual(0, asistenciaAuxiliar(df))
