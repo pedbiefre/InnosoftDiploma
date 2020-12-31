@@ -26,7 +26,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         
 
         # Crear un ExcelWriter a partir de XlsxWriter.
-        writer = pd.ExcelWriter('tests.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('./innosoft_diplomas/tests.xlsx', engine='xlsxwriter')
 
         # Convertir el DataFrame a un objeto Excel de XlsxWriter.
         df.to_excel(writer, sheet_name='Worksheet', index=False)
@@ -34,7 +34,8 @@ class DiplomaAutomaticoTestCase(TestCase):
         # Cerrar el Writer y devolver el fichero creado.
         writer.save()
 
-if __name__ == "__main__":  
-
-
-    pass
+    def testNombre(self):
+        df = pd.read_excel("tests.xlsx", header=None)
+        nombre = df.iloc[1].values[2]
+        print(nombre)
+        self.assertEqual("Francisco", nombre)
