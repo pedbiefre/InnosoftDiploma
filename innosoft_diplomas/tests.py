@@ -1,4 +1,4 @@
-import xlsxwriter
+import pandas as pd
 
 
 class DiplomaAutomaticoTestCase():
@@ -6,19 +6,15 @@ class DiplomaAutomaticoTestCase():
         return True
 
 if __name__ == "__main__":  
-    workbook = xlsxwriter.Workbook('tests.xlsx')
-    worksheet = workbook.add_worksheet("Worksheet")
+    # Create a Pandas dataframe from the data.
+    df = pd.DataFrame({'Data': [10, 20, 30, 20, 15, 30, 45]})
 
-    # Add a bold format to use to highlight cells.
-    bold = workbook.add_format({'bold': True})
-    # Write some simple text.
-    worksheet.write('A1', 'Hello')
+    # Create a Pandas Excel writer using XlsxWriter as the engine.
+    writer = pd.ExcelWriter('tests.xlsx', engine='xlsxwriter')
 
-    # Text with formatting.
-    worksheet.write('A2', 'World', bold)
+    # Convert the dataframe to an XlsxWriter Excel object.
+    df.to_excel(writer, sheet_name='Worksheet', index=False)
 
-    # Write some numbers, with row/column notation.
-    worksheet.write(2, 0, 123)
-    worksheet.write(3, 0, 123.456)
-    workbook.close()
+    # Close the Pandas Excel writer and output the Excel file.
+    writer.save()
 pass
