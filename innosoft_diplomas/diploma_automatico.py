@@ -66,12 +66,16 @@ def diplomasGeneradorOrganizador():
     
     filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de organización",filetypes = [("Excel files", "*.xlsx")])
     df = pd.read_excel(filename,  header=None)
-    numero_filas = df.shape[0]
+    contador = organizadorAuxiliar(df)
+    messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de organizador. Se han almacenado en /Diplomas/DiplomasOrganizador")
+
+def organizadorAuxiliar(dataFrame):
+    numero_filas = dataFrame.shape[0]
     contador = 0
 
     for i in range (1,numero_filas):
 
-        columna = df.iloc[i].values
+        columna = dataFrame.iloc[i].values
         comite = str(columna[7])
         
         if comite != "nan":
@@ -83,4 +87,4 @@ def diplomasGeneradorOrganizador():
         else:
             continue
         contador = contador + 1
-    messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de organizador. Se han almacenado en /Diplomas/DiplomasOrganizador")
+    return contador

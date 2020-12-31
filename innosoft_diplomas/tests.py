@@ -37,5 +37,12 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testNombre(self):
         df = pd.read_excel("tests.xlsx", header=None)
         nombre = df.iloc[1].values[2]
-        print(nombre)
         self.assertEqual("Francisco", nombre)
+
+    def testApellidos(self):
+        df = pd.read_excel("tests.xlsx", header=None)
+        apellidos = df.iloc[1].values[1]
+        self.assertEqual("Alé Palacios", apellidos)
+    
+
+    
