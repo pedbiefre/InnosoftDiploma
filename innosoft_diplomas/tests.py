@@ -46,8 +46,8 @@ class DiplomaAutomaticoTestCase(TestCase):
         
 
         # Crear un ExcelWriter a partir de XlsxWriter.
-        writer = pd.ExcelWriter('./innosoft_diplomas/tests.xlsx', engine='xlsxwriter')
-        writer1 = pd.ExcelWriter('./innosoft_diplomas/tests1.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('./muestras_pruebas/tests.xlsx', engine='xlsxwriter')
+        writer1 = pd.ExcelWriter('./muestras_pruebas/tests1.xlsx', engine='xlsxwriter')
 
         # Convertir el DataFrame a un objeto Excel de XlsxWriter.
         df.to_excel(writer, sheet_name='Worksheet', index=False)
@@ -56,21 +56,21 @@ class DiplomaAutomaticoTestCase(TestCase):
         # Cerrar el Writer y devolver el fichero creado.
         writer.save()
         writer1.save()
-        
+
     def testNombre(self):
-        df = pd.read_excel("tests.xlsx", header=None)
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         nombre = df.iloc[1].values[2]
         self.assertEqual("Francisco", nombre)
 
     def testApellidos(self):
-        df = pd.read_excel("tests.xlsx", header=None)
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         apellidos = df.iloc[1].values[1]
         self.assertEqual("Alé Palacios", apellidos)
     
     def testDiplomasAutomaticosOrganizador3Correctos(self):
-        df = pd.read_excel("tests.xlsx", header=None)
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(3, organizadorAuxiliar(df))
 
     def testDiplomasAutomaticosAsistencia7Correctos(self):
-        df = pd.read_excel("tests.xlsx", header=None)
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(7, asistenciaAuxiliar(df))
