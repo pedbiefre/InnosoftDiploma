@@ -79,9 +79,9 @@ def organizadorAuxiliar(dataFrame):
     for i in range (1,numero_filas):
 
         columna = dataFrame.iloc[i].values
-        comite = str(columna[7])
+        comite = columna[7]
         
-        if comite != "nan":
+        if isinstance(comite, str):
 
             apellidos = columna[1]   
             nombre = columna[2]

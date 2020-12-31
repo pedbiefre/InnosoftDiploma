@@ -81,6 +81,10 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(3, organizadorAuxiliar(df))
 
+    def testDiplomasAutomaticosOrganizadorDatosNumericos(self):
+        df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
+        self.assertEqual(0, organizadorAuxiliar(df))
+
     def testDiplomasAutomaticosAsistencia7Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(7, asistenciaAuxiliar(df))
