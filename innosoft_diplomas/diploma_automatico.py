@@ -80,11 +80,10 @@ def organizadorAuxiliar(dataFrame):
 
         columna = dataFrame.iloc[i].values
         comite = columna[7]
+        apellidos = columna[1]   
+        nombre = columna[2]
         
-        if isinstance(comite, str):
-
-            apellidos = columna[1]   
-            nombre = columna[2]
+        if isinstance(comite, str) and isinstance(nombre, str) and isinstance(apellidos, str):
             pdfAutomaticoOrganizador(nombre, apellidos, comite)
 
         else:
