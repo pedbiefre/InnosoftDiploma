@@ -14,6 +14,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
+
 def formularioAutomaticoAsistencia():
 
     def generar():
@@ -22,23 +23,33 @@ def formularioAutomaticoAsistencia():
             diplomasGeneradorAsistencia(opcion.get())
         if(opcion.get()==2):
             diplomasGeneradorAsistencia(opcion.get())
-            
+    
+
     root = Toplevel()
     root.title("Innosoft Diplomas")
     root.geometry('500x500')
 
+
+    title_label = Label(root,text="Title")
+    title_entry = Entry(root)
+
+    #añadir los paramtros de entrada para que no permitan la edición cuando esté en diseño basico
+    def disable_entries():
+        title_entry.configure(state="disabled")
+        title_entry.update()
+
+    def enable_entries():
+        title_entry.configure(state="normal")
+        title_entry.update()
+
     opcion = IntVar()
 
-    radio1 = Radiobutton(root, text="BÁSICO", variable=opcion, 
-            value=1)
-    radio2 = Radiobutton(root, text="CUSTOM", variable=opcion, 
-            value=2)
+    radio1 = Radiobutton(root, text="BÁSICO", variable=opcion, value=1, command=disable_entries)
+    radio2 = Radiobutton(root, text="CUSTOM", variable=opcion, value=2, command=enable_entries)
 
     radio1.pack()
     radio2.pack()
 
-    title_label = Label(root,text="Title")
-    title_entry = Entry(root)
     title_entry.pack()
     title_label.pack()
 
