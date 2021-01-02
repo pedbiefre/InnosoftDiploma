@@ -27,34 +27,63 @@ def formularioAutomaticoAsistencia():
 
     root = Toplevel()
     root.title("Innosoft Diplomas")
-    root.geometry('500x500')
+    root.geometry('600x600')
 
-
-    title_label = Label(root,text="Title")
+    title_label = Label(root,text="Título:").grid(row=3,column=0,sticky='e')
     title_entry = Entry(root)
+    title_entry.grid(row=3,column=1,padx=2, pady=2, sticky='we', columnspan=9)
 
-    #añadir los paramtros de entrada para que no permitan la edición cuando esté en diseño basico
+    subtitle_label = Label(root,text="Subtítulo:").grid(row=4,column=0,sticky='e')
+    subtitle_entry = Entry(root)
+    subtitle_entry.grid(row=4,column=1,padx=2, pady=2, sticky='we', columnspan=9)
+
+    info_label = Label(root,text="Información:").grid(row=5,column=0,sticky='e')
+    info_entry = Entry(root)
+    info_entry.grid(row=5,column=1,padx=2, pady=2, sticky='we', columnspan=1)
+
+    fecha = StringVar(root, value=time.strftime("%d/%m/%y"))
+    date_label = Label(root,text="Fecha:").grid(row=6,column=0,sticky='e')
+    date_entry = Entry(root,textvariable=fecha)
+    date_entry.grid(row=6,column=1,padx=2, pady=2, sticky='we', columnspan=1)
+
+    src_label = Label(root,text="Plantilla:").grid(row=7,column=0,sticky='e')
+    src_entry = Entry(root)
+    src_entry.grid(row=7,column=1,padx=2, pady=2, sticky='we', columnspan=9)
+    
+    entries = []
+    entries.append(title_entry)
+    entries.append(subtitle_entry)
+    entries.append(info_entry)
+    entries.append(date_entry)
+    entries.append(src_entry)
+
+    #añadir los parametros de entrada para que no permitan la edición cuando esté en diseño basico
     def disable_entries():
-        title_entry.configure(state="disabled")
-        title_entry.update()
+        for e in entries:
+            e.configure(state="disabled")
+            e.update()
 
     def enable_entries():
-        title_entry.configure(state="normal")
-        title_entry.update()
-
+         for e in entries:
+            e.configure(state="normal")
+            e.update()
+            
     opcion = IntVar()
 
     radio1 = Radiobutton(root, text="BÁSICO", variable=opcion, value=1, command=disable_entries)
     radio2 = Radiobutton(root, text="CUSTOM", variable=opcion, value=2, command=enable_entries)
 
-    radio1.pack()
-    radio2.pack()
-
-    title_entry.pack()
-    title_label.pack()
+    enun = Label(root,text="Seleccione BÁSICO para usar la plantilla determinada \n y la fuente escogida en opciones.\n Seleccione CUSTOM para configurar los campos del diploma.")
+    enun.grid(row=0,column=3)
+    radio1.grid(row=1,column=0)
+    radio2.grid(row=1,column=1)
+    
+    enun2 = Label(root,text="Configuración Diploma Customizado de Asistencia")
+    enun2.grid(row=2,column=3)
 
     generar=Button(root, text="Generar", command=generar)
-    generar.pack()
+    generar.grid(row=8,column=5)
+    
 
 def pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_totales,parametros):
     return 0
