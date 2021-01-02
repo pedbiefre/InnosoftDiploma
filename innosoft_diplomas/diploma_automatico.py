@@ -7,15 +7,48 @@ from tkinter import messagebox
 from tkinter import filedialog
 import math
 import pathlib
+import tkinter as tk
 
 from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
-def pdfAutomaticoAsistencia(nombre, apellidos,eventos_asistidos,horas_totales):
-    
-    
+def formularioAutomaticoAsistencia():
+
+    def generar():
+        #1 y 2 son los int de control del método diplomasGeneradorAsistencia: si 1 se crea un diploma basico, si 2 se crea un diploma custom 
+        if(opcion.get()==1):
+            diplomasGeneradorAsistencia(opcion.get())
+        if(opcion.get()==2):
+            diplomasGeneradorAsistencia(opcion.get())
+            
+    root = Toplevel()
+    root.title("Innosoft Diplomas")
+    root.geometry('500x500')
+
+    opcion = IntVar()
+
+    radio1 = Radiobutton(root, text="BÁSICO", variable=opcion, 
+            value=1)
+    radio2 = Radiobutton(root, text="CUSTOM", variable=opcion, 
+            value=2)
+
+    radio1.pack()
+    radio2.pack()
+
+    title_label = Label(root,text="Title")
+    title_entry = Entry(root)
+    title_entry.pack()
+    title_label.pack()
+
+    generar=Button(root, text="Generar", command=generar)
+    generar.pack()
+
+def pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_totales,parametros):
+    return 0
+
+def pdfAutomaticoAsistenciaBasico(nombre, apellidos,eventos_asistidos,horas_totales):
     pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
     c = canvas.Canvas("./Diplomas/DiplomasAsistencia/Diploma-Asistente-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
     c.drawImage("./resources/images/Diploma Asistencia.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
@@ -28,14 +61,14 @@ def pdfAutomaticoAsistencia(nombre, apellidos,eventos_asistidos,horas_totales):
     c.drawCentredString(5.75 * inch, 1.9 * inch, (time.strftime("%d/%m/%y")))
     c.save()
 
-def diplomasGeneradorAsistencia():
-
+def diplomasGeneradorAsistencia(control):
     filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
     df = pd.read_excel(filename,  header=None)
-    contador = asistenciaAuxiliar(df)
+    contador = asistenciaAuxiliar(df,control)
     messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de asistencia. Se han almacenado en /Diplomas/DiplomasAsistencia")
+    
 
-def asistenciaAuxiliar(dataFrame):
+def asistenciaAuxiliar(dataFrame,control):
     numero_filas = dataFrame.shape[0]
     contador = 0
     for i in range (1,numero_filas):
@@ -50,7 +83,10 @@ def asistenciaAuxiliar(dataFrame):
             continue
         if not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
             continue
-        pdfAutomaticoAsistencia(nombre, apellidos, eventos_asistidos, horas_totales)
+        if(control==1):
+            pdfAutomaticoAsistenciaBasico(nombre, apellidos, eventos_asistidos, horas_totales)
+        if(control==2):
+            pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_totales)
         contador = contador + 1
     return contador
 
