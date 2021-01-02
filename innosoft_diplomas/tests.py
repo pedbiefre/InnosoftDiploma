@@ -237,3 +237,14 @@ class DiplomaAutomaticoTestCase(TestCase):
         paz=Path(file)
         self.assertEqual(True, paz.exists())
 
+    def testNombreDiplomaOrganizador(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/01/21'
+        tipo='organizadorTEST'
+        parametros = Parametros('Philosopher')
+        processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
+        file = './Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
+        paz=Path(file)
+        self.assertEqual(True, paz.exists())
