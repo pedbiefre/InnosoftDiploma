@@ -1,7 +1,12 @@
+from pathlib import Path
 from unittest.case import TestCase
 import pandas as pd
 import unittest
 from diploma_automatico import organizadorAuxiliar, asistenciaAuxiliar
+
+from innosoft_diplomas.diploma_excepcional import processPDFExcepcional
+from innosoft_diplomas.parametros import Parametros
+
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
@@ -206,3 +211,16 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testDiplomasAutomaticosAsistenciaNombreNoString(self):
         df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df))
+
+    #Pruebas Interfaz
+    def testNombreDiploma(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/01/21'
+        tipo='extraordinarioTEST'
+        parametros = Parametros('Philosopher')
+        processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
+        file = './Diplomas/DiplomasExcepcionales/Diploma Extraordinario Apellidos-Nombre.pdf'
+        paz=Path(file)
+        self.assertEqual(True, paz.exists())

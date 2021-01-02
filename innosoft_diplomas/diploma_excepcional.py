@@ -14,21 +14,46 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 
 def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
-  print(parametros.get_fuente())
+
+  def auxInitParams(nombre, apellidos,motivo,fecha):
+      res = []
+      apellidos = str(apellidos.get())
+      nombre = str(nombre.get())
+      motivo = str(motivo.get())
+      fecha = str(fecha.get())
+      res.append(nombre)
+      res.append(apellidos)
+      res.append(motivo)
+      res.append(fecha)
+      return res
+
   if (tipo == "extraordinario"):
       path = "./Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
       resource = "./resources/images/Diploma Extraordinario.jpg"
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
       title = 'Diploma Extraordinario - '
   if (tipo == "ponente"):
       path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
       resource = "./resources/images/Diploma Ponente.jpg"
       title = 'Diploma Ponente - '
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
   if (tipo == "organizador"):
       path = "./Diplomas/DiplomasOrganizadores/Diploma Organizador "
       resource = "./resources/images/Diploma Organizador.jpg"
       title = 'Diploma Organizador - '
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
+  if (tipo == "extraordinarioTEST"):
 
-  c = canvas.Canvas(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
+      path = "./InnosoftDiploma/Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
+      resource = "./InnosoftDiploma/resources/images/Diploma Extraordinario.jpg"
+      title = 'Diploma Extraordinario - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
+  c = canvas.Canvas(path + data[1] + "-" + data[0]  + ".pdf", pagesize=landscape(A4))
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
 
   if parametros.get_fuente() == 'Philosopher':
@@ -38,13 +63,13 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
     pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
     c.setFont('Abecedary', 27)
 
-  c.setTitle(title + nombre.get() + apellidos.get())
-  c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
-  c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
-  c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
-  c.drawCentredString(5.75 * inch, 1.9 * inch, (str(fecha.get())))
+  c.setTitle(title + data[0] + data[1])
+  c.drawCentredString(5.75 * inch, 4.7 * inch, (data[0]))
+  c.drawCentredString(5.75 * inch, 4.1 * inch, (data[1]))
+  c.drawCentredString(5.75 * inch, 3 * inch, (data[2]))
+  c.drawCentredString(5.75 * inch, 1.9 * inch, (data[3]))
   c.save()
-  path = os.path.abspath(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf")
+  path = os.path.abspath(path + data[1] + "-" + data[0] + ".pdf")
   messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
 
