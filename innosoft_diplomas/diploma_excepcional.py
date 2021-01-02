@@ -53,6 +53,26 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
       data.append(motivo)
       data.append(fecha)
 
+  if (tipo == "ponenteTEST"):
+      path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
+      resource = "./resources/images/Diploma Ponente.jpg"
+      title = 'Diploma Ponente - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
+  if (tipo == "organizadorTEST"):
+      path = "./Diplomas/DiplomasPonentes/Diploma Organizador "
+      resource = "./resources/images/Diploma Organizador.jpg"
+      title = 'Diploma Organizador - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
   c = canvas.Canvas(path + data[1] + "-" + data[0]  + ".pdf", pagesize=landscape(A4))
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
 
@@ -70,7 +90,8 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   c.drawCentredString(5.75 * inch, 1.9 * inch, (data[3]))
   c.save()
   path = os.path.abspath(path + data[1] + "-" + data[0] + ".pdf")
-  messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
+  if (tipo[-4:] != 'TEST'):
+      messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
 
 def diplomasExc(tipo, parametros):
