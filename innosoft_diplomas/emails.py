@@ -10,7 +10,7 @@ from tkinter import *
 from functools import partial
 
 def sendEmails(username, password):
-    file = pd.read_excel("D:\InnosoftDiploma\evidencias2020.xlsx")
+    file = pd.read_excel("./evidencias2020.xlsx")
     destinatarios = file["Correo"]
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
@@ -29,7 +29,7 @@ def sendEmails(username, password):
     sesion_smtp.login(username, password)
 
     for i in range(len(destinatarios)):
-        path = 'D:\InnosoftDiploma\Diplomas\DiplomasAutomaticos\Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
+        path = './Diplomas/DiplomasAutomaticos/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
         file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
 
         # Creamos el objeto mensaje
