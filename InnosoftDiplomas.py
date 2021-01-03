@@ -6,7 +6,7 @@ from tkinter import *
 
 from PIL import ImageTk, Image
 
-from innosoft_diplomas.diploma_automatico import diplomasGeneradorAsistencia, diplomasGeneradorOrganizador
+from innosoft_diplomas.diploma_automatico import  diplomasGeneradorOrganizador, formularioAutomaticoAsistencia
 from innosoft_diplomas.diploma_excepcional import diplomasExc
 from innosoft_diplomas.edicion import selecFuente
 from innosoft_diplomas.parametros import *
@@ -19,11 +19,9 @@ def ventana_principal():
 
     menu = Menu(raiz)
 
-
-
     #DIPLOMAS AUTOMATICOS
     menudatos = Menu(menu, tearoff=0)
-    menudatos.add_command(label="Generar Diplomas de Asistencia", command=diplomasGeneradorAsistencia)
+    menudatos.add_command(label="Generar Diplomas de Asistencia", command=formularioAutomaticoAsistencia)
     menudatos.add_command(label="Generar Diplomas de Organizadores", command=diplomasGeneradorOrganizador)
     menu.add_cascade(label="Generación Automática", menu=menudatos)
 
