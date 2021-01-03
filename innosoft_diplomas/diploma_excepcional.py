@@ -82,6 +82,9 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   elif parametros.get_fuente() == 'Abecedary':
     pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
     c.setFont('Abecedary', 27)
+  elif parametros.get_fuente() == 'AndikaNewBasic':
+    pdfmetrics.registerFont(TTFont('AndikaNewBasic', './resources/fonts/AndikaNewBasic-I.ttf'))
+    c.setFont('AndikaNewBasic', 27)
 
   c.setTitle(title + data[0] + data[1])
   c.drawCentredString(5.75 * inch, 4.7 * inch, (data[0]))

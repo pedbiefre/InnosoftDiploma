@@ -29,8 +29,8 @@ def ventana_principal():
     #DIPLOMAS EXTRAS
     menudatos = Menu(menu, tearoff=0)
     menudatos.add_command(label="Diplomas Extraordinarios", command= lambda: diplomasExc("extraordinario", parametros))
-    menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente"))
-    menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador"))
+    menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente", parametros))
+    menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador", parametros))
     menu.add_cascade(label="Diplomas Especiales", menu=menudatos)
 
     #OPCIONES DE DIPLOMA
