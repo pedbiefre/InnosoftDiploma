@@ -51,10 +51,10 @@ def ventana_principal():
     raiz.config(menu=menu)
     raiz.geometry('870x340')
 
-    #img = ImageTk.PhotoImage(Image.open('./resources/images/innosoftDiploamas.png'))
+    img = ImageTk.PhotoImage(Image.open('./resources/images/innosoftDiploamas.png'))
     canvas = Canvas(raiz, width=870, height=340)
     canvas.pack()
-    #canvas.create_image(0,0,anchor=NW, image=img)
+    canvas.create_image(0,0,anchor=NW, image=img)
 
     raiz.mainloop()
 
