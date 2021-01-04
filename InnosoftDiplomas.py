@@ -14,9 +14,10 @@ from innosoft_diplomas.emails import *
 
 parametros = Parametros('Philosopher')
 
+#Función que llama a la creación de la aplicación mediante Tkinter
 def ventana_principal():  
     raiz = Tk()
-
+    #Inicialización del Menú
     menu = Menu(raiz)
 
     #DIPLOMAS AUTOMATICOS
@@ -28,8 +29,8 @@ def ventana_principal():
     #DIPLOMAS EXTRAS
     menudatos = Menu(menu, tearoff=0)
     menudatos.add_command(label="Diplomas Extraordinarios", command= lambda: diplomasExc("extraordinario", parametros))
-    menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente"))
-    menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador"))
+    menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente", parametros))
+    menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador", parametros))
     menu.add_cascade(label="Diplomas Especiales", menu=menudatos)
 
     #OPCIONES DE DIPLOMA
@@ -45,14 +46,16 @@ def ventana_principal():
     #SALIR
     menu.add_cascade(label="Salir", command = raiz.quit)
 
+    #Elementos de personalización para las ventanas
     raiz.title("Innosoft Diplomas")
     raiz.config(menu=menu)
     raiz.geometry('870x340')
 
-    img = ImageTk.PhotoImage(Image.open('./resources/images/innosoftDiploamas.png'))
+    #Imagen de fondo de la aplicación
+    '''img = ImageTk.PhotoImage(Image.open('./resources/images/innosoftDiploamas.png'))
     canvas = Canvas(raiz, width=870, height=340)
     canvas.pack()
-    canvas.create_image(0,0,anchor=NW, image=img)
+    canvas.create_image(0,0,anchor=NW, image=img)'''
 
     raiz.mainloop()
 

@@ -183,26 +183,26 @@ class DiplomaAutomaticoTestCase(TestCase):
     #Tests Diplomas Automaticos de Asistencia
     def testDiplomasAutomaticosAsistencia7Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
-        self.assertEqual(7, asistenciaAuxiliar(df))
+        self.assertEqual(7, asistenciaAuxiliar(df, 1, []))
 
     def testDiplomasAutomaticosAsistenciaHorasNegativas(self):
         df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
         #Las filas que son negativas no dan error, se saltan
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     #Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
     def testDiplomasAutomaticosAsistenciaHorasisNaN(self):
         df = pd.read_excel("./muestras_pruebas/tests2.xlsx", header=None)
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
     
     def testDiplomasAutomaticosAsistenciaEventosAsistidosisNaN(self):
         df = pd.read_excel("./muestras_pruebas/tests3.xlsx", header=None)
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
     
     def testDiplomasAutomaticosAsistenciaApellidosNoString(self):
         df = pd.read_excel("./muestras_pruebas/tests4.xlsx", header=None)
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     def testDiplomasAutomaticosAsistenciaNombreNoString(self):
         df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
