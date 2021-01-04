@@ -1,7 +1,7 @@
 from unittest.case import TestCase
 import pandas as pd
 import unittest
-from diploma_automatico import organizadorAuxiliar, asistenciaAuxiliar
+from innosoft_diplomas.diploma_automatico import organizadorAuxiliar, asistenciaAuxiliar
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
@@ -206,3 +206,18 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testDiplomasAutomaticosAsistenciaNombreNoString(self):
         df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
+
+    #Test Diplomas Automáticos Custom de Asistencia
+    def testDiplomasAutomaticosCustom7Correctos(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        "./resources/images/PLANTILLA.jpg"]
+        self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
+    
+    def testDiplomasAutomaticosCustomNombreNoString(self):
+        df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
+        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        "./resources/images/PLANTILLA.jpg"]
+        self.assertEqual(0, asistenciaAuxiliar(df, 2, textos))
