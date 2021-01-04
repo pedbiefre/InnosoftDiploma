@@ -242,3 +242,10 @@ class DiplomaAutomaticoTestCase(TestCase):
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
         "./resources/images/PLANTILLA.jpg"] 
         self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
+
+    def testDiplomasAutomaticosCustomCampoAñadido(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        "./resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
+        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
