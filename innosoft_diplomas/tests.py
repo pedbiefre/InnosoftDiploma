@@ -221,3 +221,13 @@ class DiplomaAutomaticoTestCase(TestCase):
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
         "./resources/images/PLANTILLA.jpg"]
         self.assertEqual(0, asistenciaAuxiliar(df, 2, textos))
+    
+    def testDiplomasAutomaticosCustomTextosVacios(self):
+        with self.assertRaises(Exception) as context:
+            df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+            textos = ["","","",
+            "","","","",
+            ""]
+            asistenciaAuxiliar(df, 2, textos)
+            self.assertTrue('This is broken' in context.exception)
+            
