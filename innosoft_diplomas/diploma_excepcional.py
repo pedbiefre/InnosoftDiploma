@@ -13,19 +13,20 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
 
+def auxInitParams(nombre, apellidos, motivo, fecha):
+    res = []
+    apellidos = str(apellidos.get())
+    nombre = str(nombre.get())
+    motivo = str(motivo.get())
+    fecha = str(fecha.get())
+    res.append(nombre)
+    res.append(apellidos)
+    res.append(motivo)
+    res.append(fecha)
+    return res
+
 def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
 
-  def auxInitParams(nombre, apellidos,motivo,fecha):
-      res = []
-      apellidos = str(apellidos.get())
-      nombre = str(nombre.get())
-      motivo = str(motivo.get())
-      fecha = str(fecha.get())
-      res.append(nombre)
-      res.append(apellidos)
-      res.append(motivo)
-      res.append(fecha)
-      return res
 
   if (tipo == "extraordinario"):
       path = "./Diplomas/DiplomasExcepcionales/Diploma Extraordinario "

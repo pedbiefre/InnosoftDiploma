@@ -4,7 +4,7 @@ import pandas as pd
 import unittest
 from diploma_automatico import organizadorAuxiliar, asistenciaAuxiliar
 
-from innosoft_diplomas.diploma_excepcional import processPDFExcepcional
+from innosoft_diplomas.diploma_excepcional import processPDFExcepcional, auxInitParams
 from innosoft_diplomas.edicion import actualizarParametros
 from innosoft_diplomas.parametros import Parametros
 
@@ -213,6 +213,8 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df))
 
+class DiplomasExcepcionalesTestCase(TestCase):
+
     #Pruebas generacion de diplomas y nombre
     def testNombreDiploma(self):
         nombre = 'Nombre'
@@ -250,8 +252,22 @@ class DiplomaAutomaticoTestCase(TestCase):
         paz=Path(file)
         self.assertEqual(True, paz.exists())
 
+    def testGetFuente(self):
+        parametros = Parametros('Philosopher')
+        self.assertEqual(True,parametros.get_fuente()=='Philosopher')
 
     def testActualizarParametros(self):
         parametros = Parametros('Philosopher')
         actualizarParametros(parametros,'Abecedary')
         self.assertEqual(True, parametros.get_fuente() == 'Abecedary')
+
+    def testDataDiplomas(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/12/21'
+        res = auxInitParams(nombre, apellidos, motivo, fecha)
+        self.assertEqual(True, res[0] == 'Nombre')
+        self.assertEqual(True, res[1] == 'Apellidos')
+        self.assertEqual(True, res[2] == 'Motivo')
+        self.assertEqual(True, res[3] == '01/12/21')
