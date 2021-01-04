@@ -222,12 +222,23 @@ class DiplomaAutomaticoTestCase(TestCase):
         "./resources/images/PLANTILLA.jpg"]
         self.assertEqual(0, asistenciaAuxiliar(df, 2, textos))
     
-    def testDiplomasAutomaticosCustomTextosVacios(self):
-        with self.assertRaises(Exception) as context:
-            df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
-            textos = ["","","",
-            "","","","",
-            ""]
-            asistenciaAuxiliar(df, 2, textos)
-            self.assertTrue('This is broken' in context.exception)
+    def testDiplomasAutomaticosCustomPlantillaVacia(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        ""] 
+        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
             
+    def testDiplomasAutomaticosCustomNoTitulo(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        textos = ["confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        "./resources/images/PLANTILLA.jpg"] 
+        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
+
+    def testDiplomasAutomaticosCustomTituloVacio(self):
+        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
+        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
+        "./resources/images/PLANTILLA.jpg"] 
+        self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
