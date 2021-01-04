@@ -127,6 +127,12 @@ def formularioAutomaticoAsistencia():
     
 #Generación del diploma de asistencia Custom
 def pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_totales,textos):
+    #Comprobaciones antes de generar diplomas
+    if(int(len(textos)) != 8):
+        raise Exception('No hay la cantidad adecuada de textos')
+    if not textos[7]:
+        raise Exception('No se ha encontrado plantilla')
+
     title= str(textos[0])
     subtitle=str(textos[1])
     info=str(textos[2])
