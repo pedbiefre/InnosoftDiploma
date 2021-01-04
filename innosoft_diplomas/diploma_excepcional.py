@@ -12,7 +12,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
-
+#Función que llama a la generación de diplomas excepcionales y selecciona la plantilla en función del tipo de diploma seleccionado
 def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   print(parametros.get_fuente())
   if (tipo == "extraordinario"):
@@ -28,9 +28,10 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
       resource = "./resources/images/Diploma Organizador.jpg"
       title = 'Diploma Organizador - '
 
+  #Se aplica la plantilla seleccionada previamente, la cual se ha guardado (su directrorio) en la variable resource
   c = canvas.Canvas(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
-
+  #Se lee de parametros la fuente seleccionada
   if parametros.get_fuente() == 'Philosopher':
     pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
     c.setFont('Philosopher', 27)
@@ -39,11 +40,15 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
     c.setFont('Abecedary', 27)
 
   c.setTitle(title + nombre.get() + apellidos.get())
+  #Con drawCentredString se localizan los elementos sobre la plantilla
   c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
   c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
   c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
   c.drawCentredString(5.75 * inch, 1.9 * inch, (str(fecha.get())))
+
+  #se guarda el diploma
   c.save()
+  #Se devuelve un mensaje que indica la generación correcta del diploma en la ruta especificada
   path = os.path.abspath(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf")
   messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
@@ -62,7 +67,7 @@ def diplomasExc(tipo, parametros):
   motivo = StringVar()
   fecha = StringVar(wind1, value=time.strftime("%d/%m/%y"))
 
-
+  # Se define la localización de cada uno de los parámetros del diploma en la ventana de Tkinter
   label = Label(wind1, text="Nombre")
   label.grid(row=0, column=0, sticky=W, padx=5, pady=5)
 
@@ -91,7 +96,7 @@ def diplomasExc(tipo, parametros):
   entry4 = Entry(wind1, textvariable=fecha)
   entry4.grid(row=3, column=1, padx=5, pady=10, ipadx=25)
 
-
+  #Al pulsar en Procesar se llama a la función processPDFExcepcional() la cual procede a generar el diploma
   boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros))
   boton.grid(row=5, column=0)
   wind1.geometry('290x160')

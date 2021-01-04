@@ -12,17 +12,23 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
+#Función que llama a la generación de diplomas excepcionales
 def processPDFExcepcional(nombre, apellidos,motivo,fecha):
+  #Se define la fuente a usar en el diploma
   pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
+  #Se define la plantilla a usar en el diploma
   c = canvas.Canvas("./Diplomas/DiplomasExcepcionales/Diploma Extraordinario " + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
   c.drawImage("./resources/images/Diploma Excepcional.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
   c.setFont('Philosopher', 27)
   c.setTitle('Diploma Extraordinario - ' + nombre.get() + apellidos.get())
+  #con drawCentredString se define la posición de los elementos sobre la plantilla
   c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
   c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
   c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
   c.drawCentredString(5.75 * inch, 1.9 * inch, (str(fecha.get())))
+  #Se guarda el diploma
   c.save()
+  #Se muestra un mensaje que indica que se ha generado correctamente el diploma en la ruta marcada
   path = os.path.abspath("./Diplomas/DiplomasExcepcionales/Diploma Extraordinario " + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf")
   messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
@@ -36,7 +42,7 @@ def diplomasExt():
   motivo = StringVar()
   fecha = StringVar(wind1, value=time.strftime("%d/%m/%y"))
 
-
+  # Se define la localización de cada uno de los parámetros del diploma en la ventana de Tkinter
   label = Label(wind1, text="Nombre")
   label.grid(row=0, column=0, sticky=W, padx=5, pady=5)
 
@@ -61,7 +67,7 @@ def diplomasExt():
   entry4 = Entry(wind1, textvariable=fecha)
   entry4.grid(row=3, column=1, padx=5, pady=10, ipadx=25)
 
-
+  #Al pulsar en Procesar se llama a la función processPDFExcepcional() la cual procede a generar el diploma
   boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha))
   boton.grid(row=5, column=0)
   wind1.geometry('290x160')

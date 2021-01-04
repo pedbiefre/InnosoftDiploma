@@ -10,7 +10,7 @@ def actualizarParametros(parametros, fuente):
     parametros.set_fuente(fuente)
 
 
-
+#Función utilziada para seleccionar fuentes, que luego se utilizarán para la generación de los diplomas
 def selecFuente(parametros):
     wind1 = Toplevel()
     wind1.title('Edición')
