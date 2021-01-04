@@ -217,7 +217,7 @@ def pdfAutomaticoOrganizador(nombre, apellidos,comite):
     #con drawCentredString se establece dónde estaran localizados los diferentes elementos sobre la plantilla
     c.drawCentredString(5.75 * inch, 4.7 * inch, (nombre))
     c.drawCentredString(5.75 * inch, 4.1 * inch, (apellidos))
-    c.drawCentredString(4.2 * inch, 3.55 * inch, (comite))
+    c.drawCentredString(5.75 * inch, 3 * inch, (comite))
     c.drawCentredString(5.75 * inch, 1.9 * inch, (time.strftime("%d/%m/%y")))
     #con save se procede a guardar el diploma
     c.save()
