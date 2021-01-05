@@ -9,8 +9,8 @@ install:
 - pip install codacy-coverage
 
 script: 
-- cd InnosoftDiploma
-- python test.py
+- cd innosoft_diplomas
+- python tests.py
 - coverage xml
 - python-codacy-coverage -r coverage.xml
 
