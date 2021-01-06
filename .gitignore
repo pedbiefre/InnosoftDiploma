@@ -1,0 +1,5 @@
+
+*.pyc
+.idea/misc.xml
+.idea/Innosoft.iml
+*.pdf
