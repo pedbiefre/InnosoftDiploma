@@ -11,6 +11,7 @@ from functools import partial
 
 def sendEmails(username, password):
     file = pd.read_excel("./evidencias2020.xlsx")
+    file.fillna('', inplace=True)
     destinatarios = file["Correo"]
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
@@ -29,39 +30,40 @@ def sendEmails(username, password):
     sesion_smtp.login(username, password)
 
     for i in range(len(destinatarios)):
-        path = './Diplomas/DiplomasAutomaticos/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
-        file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
+        if file["Horas de asistencia"][i]:
+            path = './Diplomas/DiplomasAsistencia/Diploma-Asistente-' + apellidos[i] + '-' + nombres[i] + '.pdf'
+            file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
 
-        # Creamos el objeto mensaje
-        mensaje = MIMEMultipart()
+            # Creamos el objeto mensaje
+            mensaje = MIMEMultipart()
 
-        # Establecemos los atributos del mensaje
-        mensaje['From'] = remitente
-        mensaje['To'] = destinatarios[i]
-        mensaje['Subject'] = asunto
+            # Establecemos los atributos del mensaje
+            mensaje['From'] = remitente
+            mensaje['To'] = destinatarios[i]
+            mensaje['Subject'] = asunto
 
-        # Agregamos el cuerpo del mensaje como objeto MIME de tipo texto
-        mensaje.attach(MIMEText(body, 'plain'))
+            # Agregamos el cuerpo del mensaje como objeto MIME de tipo texto
+            mensaje.attach(MIMEText(body, 'plain'))
 
-        # Abrimos el archivo que vamos a adjuntar
-        archivo_adjunto = open(path, 'rb')
+            # Abrimos el archivo que vamos a adjuntar
+            archivo_adjunto = open(path, 'rb')
 
-        # Creamos un objeto MIME base
-        adjunto_MIME = MIMEBase('application', 'octet-stream')
-        # Y le cargamos el archivo adjunto
-        adjunto_MIME.set_payload((archivo_adjunto).read())
-        # Codificamos el objeto en BASE64
-        encoders.encode_base64(adjunto_MIME)
-        # Agregamos una cabecera al objeto
-        adjunto_MIME.add_header('Content-Disposition', "attachment; filename= %s" % file_name)
-        # Y finalmente lo agregamos al mensaje
-        mensaje.attach(adjunto_MIME)
+            # Creamos un objeto MIME base
+            adjunto_MIME = MIMEBase('application', 'octet-stream')
+            # Y le cargamos el archivo adjunto
+            adjunto_MIME.set_payload((archivo_adjunto).read())
+            # Codificamos el objeto en BASE64
+            encoders.encode_base64(adjunto_MIME)
+            # Agregamos una cabecera al objeto
+            adjunto_MIME.add_header('Content-Disposition', "attachment; filename= %s" % file_name)
+            # Y finalmente lo agregamos al mensaje
+            mensaje.attach(adjunto_MIME)
 
-        # Convertimos el objeto mensaje a texto
-        texto = mensaje.as_string()
+            # Convertimos el objeto mensaje a texto
+            texto = mensaje.as_string()
 
-        # Enviamos el mensaje
-        sesion_smtp.sendmail(remitente, destinatarios[i], texto)
+            # Enviamos el mensaje
+            sesion_smtp.sendmail(remitente, destinatarios[i], texto)
 
     # Cerramos la conexión
     sesion_smtp.quit()
