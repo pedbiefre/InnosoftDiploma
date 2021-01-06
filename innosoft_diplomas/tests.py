@@ -291,7 +291,6 @@ class DiplomaAutomaticoTestCase(TestCase):
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
         "../resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
         self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
-        self.assertEqual(0, asistenciaAuxiliar(df,2,textos))
 
 class DiplomasExcepcionalesTestCase(TestCase):
 
