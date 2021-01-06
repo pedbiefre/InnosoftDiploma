@@ -162,13 +162,13 @@ class DiplomaAutomaticoTestCase(TestCase):
                            'Horas de evidencias': [None, None, None, None, None, None, None],
                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
         # Crear un ExcelWriter a partir de XlsxWriter.
-        writer = pd.ExcelWriter('./muestras_pruebas/tests.xlsx', engine='xlsxwriter')
-        writer1 = pd.ExcelWriter('./muestras_pruebas/tests1.xlsx', engine='xlsxwriter')
-        writer2 = pd.ExcelWriter('./muestras_pruebas/tests2.xlsx', engine='xlsxwriter')
-        writer3 = pd.ExcelWriter('./muestras_pruebas/tests3.xlsx', engine='xlsxwriter')
-        writer4 = pd.ExcelWriter('./muestras_pruebas/tests4.xlsx', engine='xlsxwriter')
-        writer5 = pd.ExcelWriter('./muestras_pruebas/tests5.xlsx', engine='xlsxwriter')
-        writer6 = pd.ExcelWriter('./muestras_pruebas/tests6.xlsx', engine='xlsxwriter')
+        writer = pd.ExcelWriter('../muestras_pruebas/tests.xlsx', engine='xlsxwriter')
+        writer1 = pd.ExcelWriter('../muestras_pruebas/tests1.xlsx', engine='xlsxwriter')
+        writer2 = pd.ExcelWriter('../muestras_pruebas/tests2.xlsx', engine='xlsxwriter')
+        writer3 = pd.ExcelWriter('../muestras_pruebas/tests3.xlsx', engine='xlsxwriter')
+        writer4 = pd.ExcelWriter('../muestras_pruebas/tests4.xlsx', engine='xlsxwriter')
+        writer5 = pd.ExcelWriter('../muestras_pruebas/tests5.xlsx', engine='xlsxwriter')
+        writer6 = pd.ExcelWriter('../muestras_pruebas/tests6.xlsx', engine='xlsxwriter')
 
         # Convertir el DataFrame a un objeto Excel de XlsxWriter.
         df.to_excel(writer, sheet_name='Worksheet', index=False)
@@ -190,108 +190,108 @@ class DiplomaAutomaticoTestCase(TestCase):
 
 
     def testNombre(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         nombre = df.iloc[1].values[2]
         self.assertEqual("Francisco", nombre)
 
     def testApellidos(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         apellidos = df.iloc[1].values[1]
         self.assertEqual("Alé Palacios", apellidos)
 
     def testEventosAsistidos(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         eventos_asistidos = df.iloc[1].values[10]
         self.assertEqual(10, eventos_asistidos)
 
     def testHorasTotalesAsistidas(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         horas_totales = df.iloc[1].values[17]
         self.assertEqual(10, horas_totales)
 
     #Tests Diplomas Automaticos de Organizador
     def testDiplomasAutomaticosOrganizador3Correctos(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(3, organizadorAuxiliar(df))
 
     def testDiplomasAutomaticosOrganizadorDatosNumericos(self):
-        df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests1.xlsx", header=None)
         self.assertEqual(0, organizadorAuxiliar(df))
 
     #Tests Diplomas Automaticos de Asistencia
     def testDiplomasAutomaticosAsistencia7Correctos(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(7, asistenciaAuxiliar(df, 1, []))
 
     def testDiplomasAutomaticosAsistenciaHorasNegativas(self):
-        df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests1.xlsx", header=None)
         #Las filas que son negativas no dan error, se saltan
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     def testEmailNoValido(self):
-        df = pd.read_excel("./muestras_pruebas/tests6.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests6.xlsx", header=None)
         self.assertEqual(0, organizadorAuxiliar(df))
 
     #Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
     def testDiplomasAutomaticosAsistenciaHorasisNaN(self):
-        df = pd.read_excel("./muestras_pruebas/tests2.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests2.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
     
     def testDiplomasAutomaticosAsistenciaEventosAsistidosisNaN(self):
-        df = pd.read_excel("./muestras_pruebas/tests3.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests3.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
     
     def testDiplomasAutomaticosAsistenciaApellidosNoString(self):
-        df = pd.read_excel("./muestras_pruebas/tests4.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests4.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     def testDiplomasAutomaticosAsistenciaNombreNoString(self):
-        df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests5.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     #Test Diplomas Automáticos Custom de Asistencia
     def testDiplomasAutomaticosCustom7Correctos(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "./resources/images/PLANTILLA.jpg"]
+        "../resources/images/PLANTILLA.jpg"]
         self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
     
     def testDiplomasAutomaticosCustomNombreNoString(self):
-        df = pd.read_excel("./muestras_pruebas/tests5.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests5.xlsx", header=None)
         textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "./resources/images/PLANTILLA.jpg"]
+        "../resources/images/PLANTILLA.jpg"]
         self.assertEqual(0, asistenciaAuxiliar(df, 2, textos))
     
     def testDiplomasAutomaticosCustomPlantillaVacia(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
         ""] 
         self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
             
     def testDiplomasAutomaticosCustomNoTitulo(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         textos = ["confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "./resources/images/PLANTILLA.jpg"] 
+        "../resources/images/PLANTILLA.jpg"] 
         self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
 
     def testDiplomasAutomaticosCustomTituloVacio(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "./resources/images/PLANTILLA.jpg"] 
+        "../resources/images/PLANTILLA.jpg"] 
         self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
 
     def testDiplomasAutomaticosCustomCampoAñadido(self):
-        df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
+        df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "./resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
+        "../resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
         self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
-        self.assertEqual(0, asistenciaAuxiliar(df))
+        self.assertEqual(0, asistenciaAuxiliar(df,2,textos))
 
 class DiplomasExcepcionalesTestCase(TestCase):
 
@@ -304,7 +304,7 @@ class DiplomasExcepcionalesTestCase(TestCase):
         tipo='extraordinarioTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
-        file = './Diplomas/DiplomasExcepcionales/Diploma Extraordinario Apellidos-Nombre.pdf'
+        file = '../Diplomas/DiplomasExcepcionales/Diploma Extraordinario Apellidos-Nombre.pdf'
         paz=Path(file)
         self.assertEqual(True, paz.exists())
 
@@ -316,7 +316,7 @@ class DiplomasExcepcionalesTestCase(TestCase):
         tipo='ponenteTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
-        file = './Diplomas/DiplomasPonentes/Diploma Ponente Apellidos-Nombre.pdf'
+        file = '../Diplomas/DiplomasPonentes/Diploma Ponente Apellidos-Nombre.pdf'
         paz=Path(file)
         self.assertEqual(True, paz.exists())
 
@@ -328,7 +328,7 @@ class DiplomasExcepcionalesTestCase(TestCase):
         tipo='organizadorTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
-        file = './Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
+        file = '../Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
         paz=Path(file)
         self.assertEqual(True, paz.exists())
 

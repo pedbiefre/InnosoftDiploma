@@ -39,7 +39,7 @@ def formularioAutomaticoAsistencia():
     info3 = StringVar(root,value="con una dedicación total de ")
     info4 = StringVar(root, value=" hora/s")
     fecha = StringVar(root, value=time.strftime("%d/%m/%y"))
-    plantilla= StringVar(root, value="./resources/images/PLANTILLA.jpg")
+    plantilla= StringVar(root, value="../resources/images/PLANTILLA.jpg")
 
     #Se recoge el titulo utilizado para generar los diplomas customs automáticos
     title_label = Label(root,text="Título:").grid(row=3,column=0,sticky='e')
@@ -142,8 +142,8 @@ def pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_to
     info4=str(textos[5])
     fecha=str(textos[6])
     plantilla=str(textos[7])
-    pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
-    c = canvas.Canvas("./Diplomas/DiplomasAsistencia/Diploma-Asistente-CUSTOM-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
+    pdfmetrics.registerFont(TTFont('Philosopher', '../resources/fonts/Philosopher-Italic.ttf'))
+    c = canvas.Canvas("../Diplomas/DiplomasAsistencia/Diploma-Asistente-CUSTOM-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
     #con drawImage se aplica la plantilla seleccionada
     c.drawImage(plantilla, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
     #con setFont se aplica la font concreta
@@ -166,10 +166,10 @@ def pdfAutomaticoAsistenciaCustom(nombre, apellidos, eventos_asistidos, horas_to
 
 #Generación del diploma de asistencia básico
 def pdfAutomaticoAsistenciaBasico(nombre, apellidos,eventos_asistidos,horas_totales):
-    pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
-    c = canvas.Canvas("./Diplomas/DiplomasAsistencia/Diploma-Asistente-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
+    pdfmetrics.registerFont(TTFont('Philosopher', '../resources/fonts/Philosopher-Italic.ttf'))
+    c = canvas.Canvas("../Diplomas/DiplomasAsistencia/Diploma-Asistente-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
     #con drawImage se aplica la plantilla seleccionada
-    c.drawImage("./resources/images/Diploma Asistencia.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
+    c.drawImage("../resources/images/Diploma Asistencia.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
     #con setFont se aplica la font concreta
     c.setFont('Philosopher', 27)
     c.setTitle('Diploma - ' + nombre + apellidos)
@@ -204,7 +204,7 @@ def asistenciaAuxiliar(dataFrame,control,textos):
             horas_totales = float(columna[17])
         except:
             continue
-        if not(validate_email(email, check_regex=True)) or not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
+        if not(validate_email(email, check_mx=False)) or not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
             continue
         if(control==1):
             pdfAutomaticoAsistenciaBasico(nombre, apellidos, eventos_asistidos, horas_totales)
@@ -215,10 +215,10 @@ def asistenciaAuxiliar(dataFrame,control,textos):
 
 def pdfAutomaticoOrganizador(nombre, apellidos,comite):
         
-    pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
-    c = canvas.Canvas("./Diplomas/DiplomasOrganizadores/Diploma-Organizador-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
+    pdfmetrics.registerFont(TTFont('Philosopher', '../resources/fonts/Philosopher-Italic.ttf'))
+    c = canvas.Canvas("../Diplomas/DiplomasOrganizadores/Diploma-Organizador-"+apellidos+"-"+nombre+".pdf", pagesize=landscape(A4))
     #con drawImage se aplica la plantilla seleccionada
-    c.drawImage("./resources/images/Diploma Organizador.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
+    c.drawImage("../resources/images/Diploma Organizador.jpg", 0, 0, width = 11.6 * inch, height = 8.4 * inch)
     #con setFont se aplica la font concreta
     c.setFont('Philosopher', 27)
     c.setTitle('Diploma - ' + nombre + apellidos)
