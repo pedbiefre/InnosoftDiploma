@@ -8,139 +8,21 @@ from innosoft_diplomas.diploma_excepcional import processPDFExcepcional, auxInit
 from innosoft_diplomas.edicion import actualizarParametros
 from innosoft_diplomas.parametros import Parametros
 
+from emails import *
+
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
         # Crear un DataFrame de  Pandas a partir de los datos.
-        #DataFrame con datos válidos
+        # DataFrame con datos válidos
         df = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-
-        #DataFrame con horas totales negativas y comités numéricos
-        df1 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, 12, None, 12, None, 12],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': [-10, -10, -10, -7, -10, -4, -10]})
-
-        #DataFrame con horas totales no numéricas
-        df2 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, 12, None, 12, None, 12],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': ["-10asdad", "-10asdads", "-10asdasd", "-10adsad", "-10adasd", "-10asdads", "-10dasda"]})
-
-        #DataFrame con Eventos asistidos no numéricos
-        df3 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': ["-10asdad", "-10asdads", "-10asdasd", "-10adsad", "-10adasd", "-10asdads", "-10dasda"],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-
-        #DataFrame con números en los apellidos
-        df4 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': [1, 2, 3, 4, 5, 6, 7],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-
-        #DataFrame con números en el nombre
-        df5 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': [1, 2, 3, 4, 5, 6, 7],
-                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver", "davbencue"],
-                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es", "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
-                            'Perfil': ["http://evidentia.test/20/profiles/view/1", "http://evidentia.test/20/profiles/view/2", "http://evidentia.test/20/profiles/view/3", "http://evidentia.test/20/profiles/view/4", "http://evidentia.test/20/profiles/view/5", "http://evidentia.test/20/profiles/view/6", "http://evidentia.test/20/profiles/view/7"],
-                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE"],
-                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
-                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
-                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
-                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
-                            'Reuniones asistidas': [None, None, None, None, None, None, None],
-                            'Bono de horas': [None, None, None, None, None, None, None],
-                            'Horas de reuniones': [None, None, None, None, None, None, None],
-                            'Evidencias registradas': [None, None, None, None, None, None, None],
-                            'Horas de evidencias': [None, None, None, None, None, None, None],
-                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-
-        # DataFrame con correos electrónicos no válidos
-        df6 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
                                     "davbencue"],
-                           'Correo': ["no", "565", "-", "nad",
-                                      "guilosost", "@us.es", "us.es"],
+                           'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                      "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
                                       "http://evidentia.test/20/profiles/view/2",
                                       "http://evidentia.test/20/profiles/view/3",
@@ -161,6 +43,187 @@ class DiplomaAutomaticoTestCase(TestCase):
                            'Evidencias registradas': [None, None, None, None, None, None, None],
                            'Horas de evidencias': [None, None, None, None, None, None, None],
                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
+
+        # DataFrame con horas totales negativas y comités numéricos
+        df1 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                       "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, 12, None, 12, None, 12],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': [-10, -10, -10, -7, -10, -4, -10]})
+
+        # DataFrame con horas totales no numéricas
+        df2 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                       "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, 12, None, 12, None, 12],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': ["-10asdad", "-10asdads", "-10asdasd", "-10adsad", "-10adasd",
+                                               "-10asdads", "-10dasda"]})
+
+        # DataFrame con Eventos asistidos no numéricos
+        df3 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                       "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': ["-10asdad", "-10asdads", "-10asdasd", "-10adsad", "-10adasd",
+                                                  "-10asdads", "-10dasda"],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
+
+        # DataFrame con números en los apellidos
+        df4 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': [1, 2, 3, 4, 5, 6, 7],
+                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                       "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
+
+        # DataFrame con números en el nombre
+        df5 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                            'Nombre': [1, 2, 3, 4, 5, 6, 7],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["fraalepal@us.es", "josgatfer@us.es", "pedbiefre@us.es", "migyanari@us.es",
+                                       "guilosost@us.es", "enrmerver@us.es", "davbencue@us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
+
+        # DataFrame con correos electrónicos no válidos
+        df6 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                     "davbencue"],
+                            'Correo': ["no", "565", "-", "nad",
+                                       "guilosost", "@us.es", "us.es"],
+                            'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                       "http://evidentia.test/20/profiles/view/2",
+                                       "http://evidentia.test/20/profiles/view/3",
+                                       "http://evidentia.test/20/profiles/view/4",
+                                       "http://evidentia.test/20/profiles/view/5",
+                                       "http://evidentia.test/20/profiles/view/6",
+                                       "http://evidentia.test/20/profiles/view/7"],
+                            'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                              "ASSISTANCE", "ASSISTANCE"],
+                            'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
+                            'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                            'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                            'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                            'Reuniones asistidas': [None, None, None, None, None, None, None],
+                            'Bono de horas': [None, None, None, None, None, None, None],
+                            'Horas de reuniones': [None, None, None, None, None, None, None],
+                            'Evidencias registradas': [None, None, None, None, None, None, None],
+                            'Horas de evidencias': [None, None, None, None, None, None, None],
+                            'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
         # Crear un ExcelWriter a partir de XlsxWriter.
         writer = pd.ExcelWriter('../muestras_pruebas/tests.xlsx', engine='xlsxwriter')
         writer1 = pd.ExcelWriter('../muestras_pruebas/tests1.xlsx', engine='xlsxwriter')
@@ -188,7 +251,6 @@ class DiplomaAutomaticoTestCase(TestCase):
         writer5.save()
         writer6.save()
 
-
     def testNombre(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         nombre = df.iloc[1].values[2]
@@ -209,7 +271,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         horas_totales = df.iloc[1].values[17]
         self.assertEqual(10, horas_totales)
 
-    #Tests Diplomas Automaticos de Organizador
+    # Tests Diplomas Automaticos de Organizador
     def testDiplomasAutomaticosOrganizador3Correctos(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(3, organizadorAuxiliar(df))
@@ -218,29 +280,29 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("../muestras_pruebas/tests1.xlsx", header=None)
         self.assertEqual(0, organizadorAuxiliar(df))
 
-    #Tests Diplomas Automaticos de Asistencia
+    # Tests Diplomas Automaticos de Asistencia
     def testDiplomasAutomaticosAsistencia7Correctos(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
         self.assertEqual(7, asistenciaAuxiliar(df, 1, []))
 
     def testDiplomasAutomaticosAsistenciaHorasNegativas(self):
         df = pd.read_excel("../muestras_pruebas/tests1.xlsx", header=None)
-        #Las filas que son negativas no dan error, se saltan
+        # Las filas que son negativas no dan error, se saltan
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
     def testEmailNoValido(self):
         df = pd.read_excel("../muestras_pruebas/tests6.xlsx", header=None)
         self.assertEqual(0, organizadorAuxiliar(df))
 
-    #Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
+    # Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
     def testDiplomasAutomaticosAsistenciaHorasisNaN(self):
         df = pd.read_excel("../muestras_pruebas/tests2.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
-    
+
     def testDiplomasAutomaticosAsistenciaEventosAsistidosisNaN(self):
         df = pd.read_excel("../muestras_pruebas/tests3.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
-    
+
     def testDiplomasAutomaticosAsistenciaApellidosNoString(self):
         df = pd.read_excel("../muestras_pruebas/tests4.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
@@ -249,62 +311,69 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("../muestras_pruebas/tests5.xlsx", header=None)
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
 
-    #Test Diplomas Automáticos Custom de Asistencia
+    # Test Diplomas Automáticos Custom de Asistencia
     def testDiplomasAutomaticosCustom7Correctos(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
-        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "../resources/images/PLANTILLA.jpg"]
+        textos = ["INNOSOFT TITULO", "confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  "../resources/images/PLANTILLA.jpg"]
         self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
-    
+
     def testDiplomasAutomaticosCustomNombreNoString(self):
         df = pd.read_excel("../muestras_pruebas/tests5.xlsx", header=None)
-        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "../resources/images/PLANTILLA.jpg"]
+        textos = ["INNOSOFT TITULO", "confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  "../resources/images/PLANTILLA.jpg"]
         self.assertEqual(0, asistenciaAuxiliar(df, 2, textos))
-    
+
     def testDiplomasAutomaticosCustomPlantillaVacia(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
-        textos = ["INNOSOFT TITULO","confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        ""] 
-        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
-            
+        textos = ["INNOSOFT TITULO", "confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  ""]
+        self.assertRaises(Exception, asistenciaAuxiliar, df, 2, textos)
+
     def testDiplomasAutomaticosCustomNoTitulo(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
-        textos = ["confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "../resources/images/PLANTILLA.jpg"] 
-        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
+        textos = ["confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  "../resources/images/PLANTILLA.jpg"]
+        self.assertRaises(Exception, asistenciaAuxiliar, df, 2, textos)
 
     def testDiplomasAutomaticosCustomTituloVacio(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
-        textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "../resources/images/PLANTILLA.jpg"] 
+        textos = ["", "confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  "../resources/images/PLANTILLA.jpg"]
         self.assertEqual(7, asistenciaAuxiliar(df, 2, textos))
 
     def testDiplomasAutomaticosCustomCampoAñadido(self):
         df = pd.read_excel("../muestras_pruebas/tests.xlsx", header=None)
-        textos = ["","confiere el siguiente certificado a:","por su asistencia a ",
-        " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
-        "../resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
-        self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
+        textos = ["", "confiere el siguiente certificado a:", "por su asistencia a ",
+                  " evento/s durante las jornadas de Innosoft Days", "con una dedicación total de ", " hora/s",
+                  "04/01/2021",
+                  "../resources/images/PLANTILLA.jpg", "TEXTO NUEVO"]
+        self.assertRaises(Exception, asistenciaAuxiliar, df, 2, textos)
+
 
 class DiplomasExcepcionalesTestCase(TestCase):
 
-    #Pruebas generacion de diplomas y nombre
+    # Pruebas generacion de diplomas y nombre
     def testNombreDiploma(self):
         nombre = 'Nombre'
         apellidos = 'Apellidos'
         motivo = 'Motivo'
         fecha = '01/01/21'
-        tipo='extraordinarioTEST'
+        tipo = 'extraordinarioTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
         file = '../Diplomas/DiplomasExcepcionales/Diploma Extraordinario Apellidos-Nombre.pdf'
-        paz=Path(file)
+        paz = Path(file)
         self.assertEqual(True, paz.exists())
 
     def testNombreDiplomaPonente(self):
@@ -312,11 +381,11 @@ class DiplomasExcepcionalesTestCase(TestCase):
         apellidos = 'Apellidos'
         motivo = 'Motivo'
         fecha = '01/01/21'
-        tipo='ponenteTEST'
+        tipo = 'ponenteTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
         file = '../Diplomas/DiplomasPonentes/Diploma Ponente Apellidos-Nombre.pdf'
-        paz=Path(file)
+        paz = Path(file)
         self.assertEqual(True, paz.exists())
 
     def testNombreDiplomaOrganizador(self):
@@ -324,20 +393,20 @@ class DiplomasExcepcionalesTestCase(TestCase):
         apellidos = 'Apellidos'
         motivo = 'Motivo'
         fecha = '01/01/21'
-        tipo='organizadorTEST'
+        tipo = 'organizadorTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
         file = '../Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
-        paz=Path(file)
+        paz = Path(file)
         self.assertEqual(True, paz.exists())
 
     def testGetFuente(self):
         parametros = Parametros('Philosopher')
-        self.assertEqual(True,parametros.get_fuente()=='Philosopher')
+        self.assertEqual(True, parametros.get_fuente() == 'Philosopher')
 
     def testActualizarParametros(self):
         parametros = Parametros('Philosopher')
-        actualizarParametros(parametros,'Abecedary')
+        actualizarParametros(parametros, 'Abecedary')
         self.assertEqual(True, parametros.get_fuente() == 'Abecedary')
 
     def testDataDiplomas(self):
@@ -350,3 +419,38 @@ class DiplomasExcepcionalesTestCase(TestCase):
         self.assertEqual(True, res[1] == 'Apellidos')
         self.assertEqual(True, res[2] == 'Motivo')
         self.assertEqual(True, res[3] == '01/12/21')
+
+class EmailsTestCase(TestCase):
+
+    def testUsuario(self):
+        usuario = 'innosoftdiplomas@gmail.com'
+        cont = usuarioAuxiliar(usuario)
+        self.assertEqual(True, cont == 1)
+
+    def testPassword(self):
+        password = 'diferentesproblemas456!'
+        cont = passwordAuxiliar(password)
+        self.assertEqual(True, cont == 1)
+
+    def testDiplomaPDF(self):
+        file = './Diplomas/DiplomasAsistencia/Diploma-Asistente-Alé Palacios-Francisco.pdf'
+        cont = diplomaPDF(file)
+        self.assertEqual(True, cont == 1)
+
+    def testDestinatarios(self):
+        destinatarios = pd.read_excel("./evidencias2020.xlsx")['Correos']
+        cont = destinatariosAuxiliar(destinatarios)
+        self.assertEqual(True, cont == len(destinatarios))
+
+    def testNombres(self):
+        nombres = pd.read_excel("./evidencias2020.xlsx")['Nombre']
+        cont = destinatariosAuxiliar(nombres)
+        self.assertEqual(True, cont == len(nombres))
+
+    def testApellidos(self):
+        apellidos = pd.read_excel("./evidencias2020.xlsx")['Apellidos']
+        cont = destinatariosAuxiliar(apellidos)
+        self.assertEqual(True, cont == len(apellidos))
+
+
+

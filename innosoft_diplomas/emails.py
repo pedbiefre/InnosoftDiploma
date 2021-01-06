@@ -6,6 +6,8 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 
+from diploma_automatico import diplomasGeneradorAsistencia
+
 from tkinter import *
 from functools import partial
 
@@ -14,6 +16,12 @@ def sendEmails(username, password):
     destinatarios = file["Correo"]
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
+
+    usuarioAuxiliar(username)
+    passwordAuxiliar(password)
+    destinatariosAuxiliar(destinatarios)
+    nombresAuxiliar(nombres)
+    apellidosAuxiliar(apellidos)
 
     remitente = username
     asunto = "Diploma jornadas Innosoft"
@@ -31,6 +39,7 @@ def sendEmails(username, password):
     for i in range(len(destinatarios)):
         path = './Diplomas/DiplomasAutomaticos/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
         file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
+        diplomaPDF(path)
 
         # Creamos el objeto mensaje
         mensaje = MIMEMultipart()
@@ -86,3 +95,43 @@ def login():
 
     # login button
     loginButton = Button(tkWindow, text="Login", command=lambda: [sendEmails(username.get(), password.get()), tkWindow.destroy()]).grid(row=4, column=0)
+
+def usuarioAuxiliar(usuario):
+    contador = 0
+    if usuario:
+        contador = contador + 1
+    return contador
+
+def passwordAuxiliar(password):
+    contador = 0
+    if password:
+        contador = contador + 1
+    return contador
+
+def diplomaPDF(path):
+    contador = 0
+    s = path.split('/')
+    if s[1] == 'Diplomas' & s[2] == 'DiplomasAsistencia':
+        contador = contador + 1
+    return contador
+
+def destinatariosAuxiliar(destinatarios):
+    contador = 0
+    for line in destinatarios:
+        if line != '':
+            contador = contador + 1
+    return contador
+
+def nombresAuxiliar(nombres):
+    contador = 0
+    for line in nombres:
+        if line != '':
+            contador = contador + 1
+    return contador
+
+def apellidosAuxiliar(apellidos):
+    contador = 0
+    for line in apellidos:
+        if line != '':
+            contador = contador + 1
+    return contador
