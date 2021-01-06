@@ -1,5 +1,6 @@
 import pandas as pd
 import smtplib
+import os.path
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -37,8 +38,8 @@ def sendEmails(username, password):
     sesion_smtp.login(username, password)
 
     for i in range(len(destinatarios)):
-        path = './Diplomas/DiplomasAutomaticos/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
-        file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
+        path = './Diplomas/DiplomasAsistencia/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
+        file_name = "Diploma-Asistente-" + apellidos[i] + '-' + nombres[i] + '.pdf'
         diplomaPDF(path)
 
         # Creamos el objeto mensaje
@@ -110,9 +111,11 @@ def passwordAuxiliar(password):
 
 def diplomaPDF(path):
     contador = 0
-    s = path.split('/')
-    if s[1] == 'Diplomas' & s[2] == 'DiplomasAsistencia':
+    if os.path.isfile(path):
         contador = contador + 1
+    else:
+        print("Path no válido")
+
     return contador
 
 def destinatariosAuxiliar(destinatarios):

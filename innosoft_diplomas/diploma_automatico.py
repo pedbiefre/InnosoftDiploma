@@ -205,6 +205,7 @@ def asistenciaAuxiliar(dataFrame,control,textos):
         except:
             continue
         if not(validate_email(email, check_mx=False)) or not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
+            print("Estoy entrando con el mail " + email)
             continue
         if(control==1):
             pdfAutomaticoAsistenciaBasico(nombre, apellidos, eventos_asistidos, horas_totales)

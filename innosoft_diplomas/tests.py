@@ -433,22 +433,27 @@ class EmailsTestCase(TestCase):
         self.assertEqual(True, cont == 1)
 
     def testDiplomaPDF(self):
-        file = './Diplomas/DiplomasAsistencia/Diploma-Asistente-Alé Palacios-Francisco.pdf'
+        file = '../Diplomas/DiplomasAsistencia/Diploma-Asistente-Alé Palacios-Francisco.pdf'
         cont = diplomaPDF(file)
         self.assertEqual(True, cont == 1)
 
+    def testDiplomaPDFBad(self):
+        file = '../Diplomas/DiplomasAsistencia/Diploma-Asistente-bad.pdf'
+        cont = diplomaPDF(file)
+        self.assertEqual(True, cont == 0)
+
     def testDestinatarios(self):
-        destinatarios = pd.read_excel("./evidencias2020.xlsx")['Correos']
+        destinatarios = pd.read_excel("../evidencias2020.xlsx")['Correo']
         cont = destinatariosAuxiliar(destinatarios)
         self.assertEqual(True, cont == len(destinatarios))
 
     def testNombres(self):
-        nombres = pd.read_excel("./evidencias2020.xlsx")['Nombre']
+        nombres = pd.read_excel("../evidencias2020.xlsx")['Nombre']
         cont = destinatariosAuxiliar(nombres)
         self.assertEqual(True, cont == len(nombres))
 
     def testApellidos(self):
-        apellidos = pd.read_excel("./evidencias2020.xlsx")['Apellidos']
+        apellidos = pd.read_excel("../evidencias2020.xlsx")['Apellidos']
         cont = destinatariosAuxiliar(apellidos)
         self.assertEqual(True, cont == len(apellidos))
 
