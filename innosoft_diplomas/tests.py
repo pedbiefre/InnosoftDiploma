@@ -1,7 +1,13 @@
+from pathlib import Path
 from unittest.case import TestCase
 import pandas as pd
 import unittest
 from innosoft_diplomas.diploma_automatico import organizadorAuxiliar, asistenciaAuxiliar
+
+from innosoft_diplomas.diploma_excepcional import processPDFExcepcional, auxInitParams
+from innosoft_diplomas.edicion import actualizarParametros
+from innosoft_diplomas.parametros import Parametros
+
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
@@ -25,7 +31,7 @@ class DiplomaAutomaticoTestCase(TestCase):
                             'Evidencias registradas': [None, None, None, None, None, None, None],
                             'Horas de evidencias': [None, None, None, None, None, None, None],
                             'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-        
+
         #DataFrame con horas totales negativas y comités numéricos
         df1 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
                             'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
@@ -45,7 +51,7 @@ class DiplomaAutomaticoTestCase(TestCase):
                             'Evidencias registradas': [None, None, None, None, None, None, None],
                             'Horas de evidencias': [None, None, None, None, None, None, None],
                             'Horas en total': [-10, -10, -10, -7, -10, -4, -10]})
-        
+
         #DataFrame con horas totales no numéricas
         df2 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
                             'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
@@ -65,7 +71,7 @@ class DiplomaAutomaticoTestCase(TestCase):
                             'Evidencias registradas': [None, None, None, None, None, None, None],
                             'Horas de evidencias': [None, None, None, None, None, None, None],
                             'Horas en total': ["-10asdad", "-10asdads", "-10asdasd", "-10adsad", "-10adasd", "-10asdads", "-10dasda"]})
-        
+
         #DataFrame con Eventos asistidos no numéricos
         df3 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
                             'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza", "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
@@ -85,7 +91,7 @@ class DiplomaAutomaticoTestCase(TestCase):
                             'Evidencias registradas': [None, None, None, None, None, None, None],
                             'Horas de evidencias': [None, None, None, None, None, None, None],
                             'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
-        
+
         #DataFrame con números en los apellidos
         df4 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
                             'Apellidos': [1, 2, 3, 4, 5, 6, 7],
@@ -149,7 +155,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         writer3.save()
         writer4.save()
         writer5.save()
-        
+
 
     def testNombre(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
@@ -169,8 +175,8 @@ class DiplomaAutomaticoTestCase(TestCase):
     def testHorasTotalesAsistidas(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
         horas_totales = df.iloc[1].values[17]
-        self.assertEqual(10, horas_totales)       
-    
+        self.assertEqual(10, horas_totales)
+
     #Tests Diplomas Automaticos de Organizador
     def testDiplomasAutomaticosOrganizador3Correctos(self):
         df = pd.read_excel("./muestras_pruebas/tests.xlsx", header=None)
@@ -249,3 +255,63 @@ class DiplomaAutomaticoTestCase(TestCase):
         " evento/s durante las jornadas de Innosoft Days","con una dedicación total de "," hora/s","04/01/2021",
         "./resources/images/PLANTILLA.jpg","TEXTO NUEVO"] 
         self.assertRaises(Exception, asistenciaAuxiliar, df,2,textos)
+        self.assertEqual(0, asistenciaAuxiliar(df))
+
+class DiplomasExcepcionalesTestCase(TestCase):
+
+    #Pruebas generacion de diplomas y nombre
+    def testNombreDiploma(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/01/21'
+        tipo='extraordinarioTEST'
+        parametros = Parametros('Philosopher')
+        processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
+        file = './Diplomas/DiplomasExcepcionales/Diploma Extraordinario Apellidos-Nombre.pdf'
+        paz=Path(file)
+        self.assertEqual(True, paz.exists())
+
+    def testNombreDiplomaPonente(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/01/21'
+        tipo='ponenteTEST'
+        parametros = Parametros('Philosopher')
+        processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
+        file = './Diplomas/DiplomasPonentes/Diploma Ponente Apellidos-Nombre.pdf'
+        paz=Path(file)
+        self.assertEqual(True, paz.exists())
+
+    def testNombreDiplomaOrganizador(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/01/21'
+        tipo='organizadorTEST'
+        parametros = Parametros('Philosopher')
+        processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
+        file = './Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
+        paz=Path(file)
+        self.assertEqual(True, paz.exists())
+
+    def testGetFuente(self):
+        parametros = Parametros('Philosopher')
+        self.assertEqual(True,parametros.get_fuente()=='Philosopher')
+
+    def testActualizarParametros(self):
+        parametros = Parametros('Philosopher')
+        actualizarParametros(parametros,'Abecedary')
+        self.assertEqual(True, parametros.get_fuente() == 'Abecedary')
+
+    def testDataDiplomas(self):
+        nombre = 'Nombre'
+        apellidos = 'Apellidos'
+        motivo = 'Motivo'
+        fecha = '01/12/21'
+        res = auxInitParams(nombre, apellidos, motivo, fecha)
+        self.assertEqual(True, res[0] == 'Nombre')
+        self.assertEqual(True, res[1] == 'Apellidos')
+        self.assertEqual(True, res[2] == 'Motivo')
+        self.assertEqual(True, res[3] == '01/12/21')

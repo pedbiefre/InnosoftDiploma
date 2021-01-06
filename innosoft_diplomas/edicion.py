@@ -22,8 +22,7 @@ def selecFuente(parametros):
     OptionList = [
         "Philosopher",
         "Abecedary",
-        "Gemini",
-        "Cancer"
+        "AndikaNewBasic"
     ]
 
     entry = tk.Spinbox(wind1, values=list(OptionList))

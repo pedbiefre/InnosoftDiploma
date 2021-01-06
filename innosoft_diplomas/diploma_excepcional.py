@@ -12,24 +12,69 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 
+def auxInitParams(nombre, apellidos, motivo, fecha):
+    res = []
+    apellidos = str(apellidos.get())
+    nombre = str(nombre.get())
+    motivo = str(motivo.get())
+    fecha = str(fecha.get())
+    res.append(nombre)
+    res.append(apellidos)
+    res.append(motivo)
+    res.append(fecha)
+    return res
+
 #Función que llama a la generación de diplomas excepcionales y selecciona la plantilla en función del tipo de diploma seleccionado
 def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
-  print(parametros.get_fuente())
+
+
   if (tipo == "extraordinario"):
       path = "./Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
       resource = "./resources/images/Diploma Extraordinario.jpg"
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
       title = 'Diploma Extraordinario - '
   if (tipo == "ponente"):
       path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
       resource = "./resources/images/Diploma Ponente.jpg"
       title = 'Diploma Ponente - '
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
   if (tipo == "organizador"):
       path = "./Diplomas/DiplomasOrganizadores/Diploma Organizador "
       resource = "./resources/images/Diploma Organizador.jpg"
       title = 'Diploma Organizador - '
+      data = auxInitParams(nombre, apellidos, motivo, fecha)
+  if (tipo == "extraordinarioTEST"):
 
-  #Se aplica la plantilla seleccionada previamente, la cual se ha guardado (su directrorio) en la variable resource
-  c = canvas.Canvas(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf", pagesize=landscape(A4))
+      path = "./InnosoftDiploma/Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
+      resource = "./InnosoftDiploma/resources/images/Diploma Extraordinario.jpg"
+      title = 'Diploma Extraordinario - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
+  if (tipo == "ponenteTEST"):
+      path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
+      resource = "./resources/images/Diploma Ponente.jpg"
+      title = 'Diploma Ponente - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
+  if (tipo == "organizadorTEST"):
+      path = "./Diplomas/DiplomasPonentes/Diploma Organizador "
+      resource = "./resources/images/Diploma Organizador.jpg"
+      title = 'Diploma Organizador - '
+      data = []
+      data.append(nombre)
+      data.append(apellidos)
+      data.append(motivo)
+      data.append(fecha)
+
+  c = canvas.Canvas(path + data[1] + "-" + data[0]  + ".pdf", pagesize=landscape(A4))
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
   #Se lee de parametros la fuente seleccionada
   if parametros.get_fuente() == 'Philosopher':
@@ -38,19 +83,19 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   elif parametros.get_fuente() == 'Abecedary':
     pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
     c.setFont('Abecedary', 27)
+  elif parametros.get_fuente() == 'AndikaNewBasic':
+    pdfmetrics.registerFont(TTFont('AndikaNewBasic', './resources/fonts/AndikaNewBasic-I.ttf'))
+    c.setFont('AndikaNewBasic', 27)
 
-  c.setTitle(title + nombre.get() + apellidos.get())
-  #Con drawCentredString se localizan los elementos sobre la plantilla
-  c.drawCentredString(5.75 * inch, 4.7 * inch, (str(nombre.get())))
-  c.drawCentredString(5.75 * inch, 4.1 * inch, (str(apellidos.get())))
-  c.drawCentredString(5.75 * inch, 3 * inch, (str(motivo.get())))
-  c.drawCentredString(5.75 * inch, 1.9 * inch, (str(fecha.get())))
-
-  #se guarda el diploma
+  c.setTitle(title + data[0] + data[1])
+  c.drawCentredString(5.75 * inch, 4.7 * inch, (data[0]))
+  c.drawCentredString(5.75 * inch, 4.1 * inch, (data[1]))
+  c.drawCentredString(5.75 * inch, 3 * inch, (data[2]))
+  c.drawCentredString(5.75 * inch, 1.9 * inch, (data[3]))
   c.save()
-  #Se devuelve un mensaje que indica la generación correcta del diploma en la ruta especificada
-  path = os.path.abspath(path + str(apellidos.get()) + "-" + str(nombre.get()) + ".pdf")
-  messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
+  path = os.path.abspath(path + data[1] + "-" + data[0] + ".pdf")
+  if (tipo[-4:] != 'TEST'):
+      messagebox.showinfo("Diploma creado","El diploma se ha generado correctamente en " + path)
 
 
 def diplomasExc(tipo, parametros):
