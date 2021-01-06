@@ -8,6 +8,7 @@ from tkinter import filedialog
 import math
 import pathlib
 import tkinter as tk
+from validate_email import validate_email
 
 from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfbase import pdfmetrics
@@ -184,7 +185,7 @@ def pdfAutomaticoAsistenciaBasico(nombre, apellidos,eventos_asistidos,horas_tota
 #Función donde se pide seleccionar el Excel con los datos de Evidentia y se hace produce la generación de diplomas a partir de los datos seleccionados.
 def diplomasGeneradorAsistencia(control,textos):
     filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
-    df = pd.read_excel(filename,  header=None)
+    df = pd.read_excel(filename, header=None)
     contador = asistenciaAuxiliar(df,control,textos)
     messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de asistencia. Se han almacenado en /Diplomas/DiplomasAsistencia")
     
@@ -197,12 +198,13 @@ def asistenciaAuxiliar(dataFrame,control,textos):
         columna = dataFrame.iloc[i].values
         apellidos = columna[1]   
         nombre = columna[2]
+        email = columna[4]
         eventos_asistidos = columna[10]
         try:
             horas_totales = float(columna[17])
         except:
             continue
-        if not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
+        if not(validate_email(email, check_regex=True)) or not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
             continue
         if(control==1):
             pdfAutomaticoAsistenciaBasico(nombre, apellidos, eventos_asistidos, horas_totales)

@@ -132,6 +132,35 @@ class DiplomaAutomaticoTestCase(TestCase):
                             'Horas de evidencias': [None, None, None, None, None, None, None],
                             'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
 
+        # DataFrame con correos electrónicos no válidos
+        df6 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
+                           'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
+                                         "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
+                           'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                           'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
+                                    "davbencue"],
+                           'Correo': ["no", "565", "-", "nad",
+                                      "guilosost", "@us.es", "us.es"],
+                           'Perfil': ["http://evidentia.test/20/profiles/view/1",
+                                      "http://evidentia.test/20/profiles/view/2",
+                                      "http://evidentia.test/20/profiles/view/3",
+                                      "http://evidentia.test/20/profiles/view/4",
+                                      "http://evidentia.test/20/profiles/view/5",
+                                      "http://evidentia.test/20/profiles/view/6",
+                                      "http://evidentia.test/20/profiles/view/7"],
+                           'Participación': ["ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE", "ASSISTANCE",
+                                             "ASSISTANCE", "ASSISTANCE"],
+                           'Comité': [None, None, "Sostenibilidad", None, "Logística", None, "Logística"],
+                           'Evidencia aleatoria': [None, None, None, None, None, None, None],
+                           'Horas de evidencia aleatoria': [None, None, None, None, None, None, None],
+                           'Eventos asistidos': [10, 10, 10, 7, 10, 4, 10],
+                           'Horas de asistencia': [10, 10, 10, 7, 10, 4, 10],
+                           'Reuniones asistidas': [None, None, None, None, None, None, None],
+                           'Bono de horas': [None, None, None, None, None, None, None],
+                           'Horas de reuniones': [None, None, None, None, None, None, None],
+                           'Evidencias registradas': [None, None, None, None, None, None, None],
+                           'Horas de evidencias': [None, None, None, None, None, None, None],
+                           'Horas en total': [10, 10, 10, 7, 10, 4, 10]})
         # Crear un ExcelWriter a partir de XlsxWriter.
         writer = pd.ExcelWriter('./muestras_pruebas/tests.xlsx', engine='xlsxwriter')
         writer1 = pd.ExcelWriter('./muestras_pruebas/tests1.xlsx', engine='xlsxwriter')
@@ -139,6 +168,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         writer3 = pd.ExcelWriter('./muestras_pruebas/tests3.xlsx', engine='xlsxwriter')
         writer4 = pd.ExcelWriter('./muestras_pruebas/tests4.xlsx', engine='xlsxwriter')
         writer5 = pd.ExcelWriter('./muestras_pruebas/tests5.xlsx', engine='xlsxwriter')
+        writer6 = pd.ExcelWriter('./muestras_pruebas/tests6.xlsx', engine='xlsxwriter')
 
         # Convertir el DataFrame a un objeto Excel de XlsxWriter.
         df.to_excel(writer, sheet_name='Worksheet', index=False)
@@ -147,6 +177,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         df3.to_excel(writer3, sheet_name='Worksheet', index=False)
         df4.to_excel(writer4, sheet_name='Worksheet', index=False)
         df5.to_excel(writer5, sheet_name='Worksheet', index=False)
+        df6.to_excel(writer6, sheet_name='Worksheet', index=False)
 
         # Cerrar el Writer y devolver el fichero creado.
         writer.save()
@@ -155,6 +186,7 @@ class DiplomaAutomaticoTestCase(TestCase):
         writer3.save()
         writer4.save()
         writer5.save()
+        writer6.save()
 
 
     def testNombre(self):
@@ -195,6 +227,10 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("./muestras_pruebas/tests1.xlsx", header=None)
         #Las filas que son negativas no dan error, se saltan
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
+
+    def testEmailNoValido(self):
+        df = pd.read_excel("./muestras_pruebas/tests6.xlsx", header=None)
+        self.assertEqual(0, organizadorAuxiliar(df))
 
     #Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
     def testDiplomasAutomaticosAsistenciaHorasisNaN(self):
