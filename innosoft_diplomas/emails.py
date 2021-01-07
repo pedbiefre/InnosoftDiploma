@@ -8,7 +8,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 from validate_email import validate_email
 
-from diploma_automatico import diplomasGeneradorAsistencia
+from innosoft_diplomas.diploma_automatico import diplomasGeneradorAsistencia
 
 from tkinter import *
 from functools import partial
@@ -19,12 +19,14 @@ def sendEmails(username, password):
     destinatarios = file["Correo"]
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
+    horas_totales = file["Horas en total"]
 
     usuarioAuxiliar(username)
     passwordAuxiliar(password)
     destinatariosAuxiliar(destinatarios)
     nombresAuxiliar(nombres)
     apellidosAuxiliar(apellidos)
+
 
     remitente = username
     asunto = "Diploma jornadas Innosoft"
@@ -40,7 +42,11 @@ def sendEmails(username, password):
     sesion_smtp.login(username, password)
 
     for i in range(len(destinatarios)):
-        path = '../Diplomas/DiplomasAsistencia/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
+        horas = float(horas_totales[i])
+        if not(horas is not math.nan and horas > 0 ):
+            continue
+
+        path = './Diplomas/DiplomasAsistencia/Diploma-Asistente-' + apellidos[i] + '-' + nombres[i] + '.pdf'
         file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
         diplomaPDF(path)
 
@@ -110,7 +116,7 @@ def nombresAuxiliar(nombres):
 def apellidosAuxiliar(apellidos):
     contador = 0
     for line in apellidos:
-        if not (math.isnan(line)):
+        if isinstance(line, str):
             contador = contador + 1
     return contador
 
