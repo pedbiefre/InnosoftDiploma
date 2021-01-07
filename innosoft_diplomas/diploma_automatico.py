@@ -184,7 +184,7 @@ def pdfAutomaticoAsistenciaBasico(nombre, apellidos,eventos_asistidos,horas_tota
 #Función donde se pide seleccionar el Excel con los datos de Evidentia y se hace produce la generación de diplomas a partir de los datos seleccionados.
 def diplomasGeneradorAsistencia(control,textos):
     filename = filedialog.askopenfilename(initialdir = pathlib.Path().absolute(),title = "Seleccione el fichero con los datos de asistencia",filetypes = [("Excel files", "*.xlsx")])
-    df = pd.read_excel(filename,  header=None)
+    df = pd.read_excel(filename, header=None)
     contador = asistenciaAuxiliar(df,control,textos)
     messagebox.showinfo("Diplomas creados","Se han creado un total de " + str(contador) + " diplomas de asistencia. Se han almacenado en /Diplomas/DiplomasAsistencia")
     

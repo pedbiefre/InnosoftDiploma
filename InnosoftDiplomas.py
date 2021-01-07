@@ -5,6 +5,7 @@ import time
 from tkinter import *
 
 from PIL import ImageTk, Image
+import PIL
 
 from innosoft_diplomas.diploma_automatico import  diplomasGeneradorOrganizador, formularioAutomaticoAsistencia
 from innosoft_diplomas.diploma_excepcional import diplomasExc
@@ -52,10 +53,12 @@ def ventana_principal():
     raiz.geometry('870x340')
 
     #Imagen de fondo de la aplicación
-    '''img = ImageTk.PhotoImage(Image.open('./resources/images/innosoftDiploamas.png'))
+    fp = open("./resources/images/innosoftDiploamas.png","rb")
+    image = PIL.Image.open(fp)
+    photo = PIL.ImageTk.PhotoImage(image)
     canvas = Canvas(raiz, width=870, height=340)
     canvas.pack()
-    canvas.create_image(0,0,anchor=NW, image=img)'''
+    canvas.create_image(0,0,anchor=NW, image=photo)
 
     raiz.mainloop()
 
