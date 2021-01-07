@@ -71,7 +71,8 @@ def sendEmails(username, password):
         # Codificamos el objeto en BASE64
         encoders.encode_base64(adjunto_MIME)
         # Agregamos una cabecera al objeto
-        adjunto_MIME.add_header('Content-Disposition', "attachment; filename= %s" % file_name)
+        aux="attachment; filename=" + file_name
+        adjunto_MIME.add_header('Content-Disposition', aux)
         # Y finalmente lo agregamos al mensaje
         mensaje.attach(adjunto_MIME)
 

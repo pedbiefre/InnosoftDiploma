@@ -66,7 +66,7 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
         data.append(fecha)
 
     if (tipo == "organizadorTEST"):
-        path = "./Diplomas/DiplomasPonentes/Diploma Organizador "
+        path = "./Diplomas/DiplomasOrganizadores/Diploma Organizador "
         resource = "./resources/images/Diploma Organizador.jpg"
         title = 'Diploma Organizador - '
         data = []
