@@ -392,7 +392,7 @@ class DiplomasExcepcionalesTestCase(TestCase):
         tipo = 'organizadorTEST'
         parametros = Parametros('Philosopher')
         processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros)
-        file = './Diplomas/DiplomasOrganizador/Diploma Organizador Apellidos-Nombre.pdf'
+        file = './Diplomas/DiplomasOrganizadores/Diploma Organizador Apellidos-Nombre.pdf'
         paz = Path(file)
         self.assertEqual(True, paz.exists())
 
