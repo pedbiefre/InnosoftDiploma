@@ -8,7 +8,6 @@ from tkinter import filedialog
 import math
 import pathlib
 import tkinter as tk
-from validate_email import validate_email
 
 from reportlab.lib.pagesizes import landscape, A4, inch
 from reportlab.pdfbase import pdfmetrics
@@ -198,14 +197,12 @@ def asistenciaAuxiliar(dataFrame,control,textos):
         columna = dataFrame.iloc[i].values
         apellidos = columna[1]   
         nombre = columna[2]
-        email = columna[4]
         eventos_asistidos = columna[10]
         try:
             horas_totales = float(columna[17])
         except:
             continue
-        if not(validate_email(email, check_mx=False)) or not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
-            print("Estoy entrando con el mail " + email)
+        if not(isinstance(horas_totales, float)) or horas_totales <= 0 or  not(isinstance(nombre, str)) or not(isinstance(apellidos, str)) or not(isinstance(eventos_asistidos, int)):
             continue
         if(control==1):
             pdfAutomaticoAsistenciaBasico(nombre, apellidos, eventos_asistidos, horas_totales)

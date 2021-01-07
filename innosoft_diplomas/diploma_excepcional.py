@@ -46,7 +46,7 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   if (tipo == "extraordinarioTEST"):
 
       path = "../InnosoftDiploma/Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
-      resource = "../InnosoftDiploma/resources/images/Diploma Extraordinario.jpg"
+      resource = "../resources/images/Diploma Extraordinario.jpg"
       title = 'Diploma Extraordinario - '
       data = []
       data.append(nombre)

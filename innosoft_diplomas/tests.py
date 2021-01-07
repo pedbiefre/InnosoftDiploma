@@ -9,7 +9,7 @@ from innosoft_diplomas.edicion import actualizarParametros
 from innosoft_diplomas.parametros import Parametros
 
 from emails import *
-
+import math
 
 class DiplomaAutomaticoTestCase(TestCase):
     def setUp(self):
@@ -197,9 +197,9 @@ class DiplomaAutomaticoTestCase(TestCase):
 
         # DataFrame con correos electrónicos no válidos
         df6 = pd.DataFrame({'DNI': [111111111, 111111112, 111111113, 111111114, 111111115, 111111116, 111111117],
-                            'Apellidos': ["Alé Palacios", "Gata Fernández", "Biedma Fresno", "Yanes Ariza",
-                                          "Losada Ostos", "Merino Verde", "Benavides Cuevas"],
-                            'Nombre': ["Francisco", "José Manuel", "Pedro", "Miguel", "Guillermo", "Enrique", "David"],
+                            'Apellidos': ["", "", "", "",
+                                          "", "", ""],
+                            'Nombre': ["", "", "", "", "", "", ""],
                             'Uvus': ["fraalepal", "josgatfer", "pedbiefre", "migyanari", "guilosost", "enrmerver",
                                      "davbencue"],
                             'Correo': ["no", "565", "-", "nad",
@@ -289,10 +289,6 @@ class DiplomaAutomaticoTestCase(TestCase):
         df = pd.read_excel("../muestras_pruebas/tests1.xlsx", header=None)
         # Las filas que son negativas no dan error, se saltan
         self.assertEqual(0, asistenciaAuxiliar(df, 1, []))
-
-    def testEmailNoValido(self):
-        df = pd.read_excel("../muestras_pruebas/tests6.xlsx", header=None)
-        self.assertEqual(0, organizadorAuxiliar(df))
 
     # Cualquier fila que no cumpla las restricciones se salta y no se hace PDF de ella
     def testDiplomasAutomaticosAsistenciaHorasisNaN(self):
@@ -421,16 +417,53 @@ class DiplomasExcepcionalesTestCase(TestCase):
         self.assertEqual(True, res[3] == '01/12/21')
 
 class EmailsTestCase(TestCase):
+    def testNombres(self):
+        nombres = pd.read_excel("../evidencias2020.xlsx")['Nombre']
+        cont = destinatariosAuxiliar(nombres)
+        self.assertEqual(True, cont == len(nombres))
+
+    def testNombresBad(self):
+        nombres = pd.read_excel("../muestras_pruebas/tests6.xlsx")['Nombre']
+        cont = 0
+        for line in nombres:
+            print("La linea: " + str(line))
+            if not(math.isnan(line)):
+                cont = cont + 1
+        self.assertEqual(0, cont)
+
+    def testApellidos(self):
+        apellidos = pd.read_excel("../evidencias2020.xlsx")['Apellidos']
+        cont = destinatariosAuxiliar(apellidos)
+        self.assertEqual(True, cont == len(apellidos))
+
+    def testApellidosBad(self):
+        apellidos = pd.read_excel("../muestras_pruebas/tests6.xlsx")['Apellidos']
+        cont = 0
+        for line in apellidos:
+            print("La linea: " + str(line))
+            if not(math.isnan(line)):
+                cont = cont + 1
+        self.assertEqual(0, cont)
 
     def testUsuario(self):
         usuario = 'innosoftdiplomas@gmail.com'
         cont = usuarioAuxiliar(usuario)
         self.assertEqual(True, cont == 1)
 
+    def testUsuarioBad(self):
+        usuario = 'noneanemail.com'
+        cont = usuarioAuxiliar(usuario)
+        self.assertEqual(True, cont == 0)
+
     def testPassword(self):
         password = 'diferentesproblemas456!'
         cont = passwordAuxiliar(password)
         self.assertEqual(True, cont == 1)
+
+    def testPasswordBad(self):
+        password = ''
+        cont = passwordAuxiliar(password)
+        self.assertEqual(True, cont == 0)
 
     def testDiplomaPDF(self):
         file = '../Diplomas/DiplomasAsistencia/Diploma-Asistente-Alé Palacios-Francisco.pdf'
@@ -447,15 +480,15 @@ class EmailsTestCase(TestCase):
         cont = destinatariosAuxiliar(destinatarios)
         self.assertEqual(True, cont == len(destinatarios))
 
-    def testNombres(self):
-        nombres = pd.read_excel("../evidencias2020.xlsx")['Nombre']
-        cont = destinatariosAuxiliar(nombres)
-        self.assertEqual(True, cont == len(nombres))
+    def testDestinatariosBad(self):
+        destinatarios = pd.read_excel("../muestras_pruebas/tests6.xlsx")['Correo']
+        cont = 0
 
-    def testApellidos(self):
-        apellidos = pd.read_excel("../evidencias2020.xlsx")['Apellidos']
-        cont = destinatariosAuxiliar(apellidos)
-        self.assertEqual(True, cont == len(apellidos))
+        for lines in destinatarios:
+            if validar_email_aux(lines):
+                cont = cont + 1
+
+        self.assertEqual(0, cont)
 
 
 
