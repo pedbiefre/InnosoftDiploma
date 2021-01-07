@@ -29,24 +29,24 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
 
 
   if (tipo == "extraordinario"):
-      path = "./Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
-      resource = "./resources/images/Diploma Extraordinario.jpg"
+      path = "../Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
+      resource = "../resources/images/Diploma Extraordinario.jpg"
       data = auxInitParams(nombre, apellidos, motivo, fecha)
       title = 'Diploma Extraordinario - '
   if (tipo == "ponente"):
-      path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
-      resource = "./resources/images/Diploma Ponente.jpg"
+      path = "../Diplomas/DiplomasPonentes/Diploma Ponente "
+      resource = "../resources/images/Diploma Ponente.jpg"
       title = 'Diploma Ponente - '
       data = auxInitParams(nombre, apellidos, motivo, fecha)
   if (tipo == "organizador"):
-      path = "./Diplomas/DiplomasOrganizadores/Diploma Organizador "
-      resource = "./resources/images/Diploma Organizador.jpg"
+      path = "../Diplomas/DiplomasOrganizadores/Diploma Organizador "
+      resource = "../resources/images/Diploma Organizador.jpg"
       title = 'Diploma Organizador - '
       data = auxInitParams(nombre, apellidos, motivo, fecha)
   if (tipo == "extraordinarioTEST"):
 
-      path = "./InnosoftDiploma/Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
-      resource = "./InnosoftDiploma/resources/images/Diploma Extraordinario.jpg"
+      path = "../InnosoftDiploma/Diplomas/DiplomasExcepcionales/Diploma Extraordinario "
+      resource = "../resources/images/Diploma Extraordinario.jpg"
       title = 'Diploma Extraordinario - '
       data = []
       data.append(nombre)
@@ -55,8 +55,8 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
       data.append(fecha)
 
   if (tipo == "ponenteTEST"):
-      path = "./Diplomas/DiplomasPonentes/Diploma Ponente "
-      resource = "./resources/images/Diploma Ponente.jpg"
+      path = "../Diplomas/DiplomasPonentes/Diploma Ponente "
+      resource = "../resources/images/Diploma Ponente.jpg"
       title = 'Diploma Ponente - '
       data = []
       data.append(nombre)
@@ -65,8 +65,8 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
       data.append(fecha)
 
   if (tipo == "organizadorTEST"):
-      path = "./Diplomas/DiplomasPonentes/Diploma Organizador "
-      resource = "./resources/images/Diploma Organizador.jpg"
+      path = "../Diplomas/DiplomasPonentes/Diploma Organizador "
+      resource = "../resources/images/Diploma Organizador.jpg"
       title = 'Diploma Organizador - '
       data = []
       data.append(nombre)
@@ -78,13 +78,13 @@ def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
   c.drawImage(resource, 0, 0, width = 11.6 * inch, height = 8.4 * inch)
   #Se lee de parametros la fuente seleccionada
   if parametros.get_fuente() == 'Philosopher':
-    pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
+    pdfmetrics.registerFont(TTFont('Philosopher', '../resources/fonts/Philosopher-Italic.ttf'))
     c.setFont('Philosopher', 27)
   elif parametros.get_fuente() == 'Abecedary':
-    pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
+    pdfmetrics.registerFont(TTFont('Abecedary', '../resources/fonts/Abecedary Italic.ttf'))
     c.setFont('Abecedary', 27)
   elif parametros.get_fuente() == 'AndikaNewBasic':
-    pdfmetrics.registerFont(TTFont('AndikaNewBasic', './resources/fonts/AndikaNewBasic-I.ttf'))
+    pdfmetrics.registerFont(TTFont('AndikaNewBasic', '../resources/fonts/AndikaNewBasic-I.ttf'))
     c.setFont('AndikaNewBasic', 27)
 
   c.setTitle(title + data[0] + data[1])
@@ -145,4 +145,4 @@ def diplomasExc(tipo, parametros):
   boton = Button(wind1, text="Procesar", command=lambda:processPDFExcepcional(nombre, apellidos, motivo, fecha, tipo, parametros))
   boton.grid(row=5, column=0)
   wind1.geometry('290x160')
-  wind1.iconbitmap("./resources/images/innosoft.ico")
+  wind1.iconbitmap("../resources/images/innosoft.ico")

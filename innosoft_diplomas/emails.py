@@ -1,19 +1,30 @@
 import pandas as pd
 import smtplib
+import os.path
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+from validate_email import validate_email
+
+from diploma_automatico import diplomasGeneradorAsistencia
 
 from tkinter import *
 from functools import partial
+import math
 
 def sendEmails(username, password):
     file = pd.read_excel("./evidencias2020.xlsx")
     destinatarios = file["Correo"]
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
+
+    usuarioAuxiliar(username)
+    passwordAuxiliar(password)
+    destinatariosAuxiliar(destinatarios)
+    nombresAuxiliar(nombres)
+    apellidosAuxiliar(apellidos)
 
     remitente = username
     asunto = "Diploma jornadas Innosoft"
@@ -29,8 +40,9 @@ def sendEmails(username, password):
     sesion_smtp.login(username, password)
 
     for i in range(len(destinatarios)):
-        path = './Diplomas/DiplomasAutomaticos/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
+        path = '../Diplomas/DiplomasAsistencia/Diploma-' + apellidos[i] + '-' + nombres[i] + '.pdf'
         file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
+        diplomaPDF(path)
 
         # Creamos el objeto mensaje
         mensaje = MIMEMultipart()
@@ -86,3 +98,46 @@ def login():
 
     # login button
     loginButton = Button(tkWindow, text="Login", command=lambda: [sendEmails(username.get(), password.get()), tkWindow.destroy()]).grid(row=4, column=0)
+
+
+def nombresAuxiliar(nombres):
+    contador = 0
+    for line in nombres:
+        if line != '':
+            contador = contador + 1
+    return contador
+
+def apellidosAuxiliar(apellidos):
+    contador = 0
+    for line in apellidos:
+        if not (math.isnan(line)):
+            contador = contador + 1
+    return contador
+
+def usuarioAuxiliar(usuario):
+    contador = 0
+    if validate_email(email=usuario, check_mx=False):
+        contador = contador + 1
+    return contador
+
+def passwordAuxiliar(password):
+    contador = 0
+    if password:
+        contador = contador + 1
+    return contador
+
+def diplomaPDF(path):
+    contador = 0
+    if os.path.isfile(path):
+        contador = contador + 1
+    return contador
+
+def validar_email_aux(email):
+    return validate_email(email=email, check_mx=False)
+
+def destinatariosAuxiliar(destinatarios):
+    contador = 0
+    for line in destinatarios:
+        if line != "":
+            contador = contador + 1
+    return contador
