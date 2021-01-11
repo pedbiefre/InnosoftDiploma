@@ -15,6 +15,9 @@ install:
 
 script: 
 - python -m unittest innosoft_diplomas/tests.py
+
+after_success:
+- cd innosoft_diplomas
 - coverage run --branch --source=. ./tests.py --with-xunit
 - coverage xml
 - python-codacy-coverage -r coverage.xml
