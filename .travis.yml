@@ -12,10 +12,8 @@ install:
 - pip install -r requirements.txt
 - pip install coverage
 - pip install codacy-coverage
-- pip install unittest
 
 script: 
-- cd innosoft_diplomas
 - python -m unittest innosoft_diplomas/tests.py
 - coverage run --branch --source=. ./tests.py --with-xunit
 - coverage xml
