@@ -8,15 +8,19 @@ from email.mime.base import MIMEBase
 from email import encoders
 from validate_email import validate_email
 
-from innosoft_diplomas.diploma_automatico import diplomasGeneradorAsistencia
+from tkinter import *
+from tkinter import messagebox
+from tkinter import filedialog
+import pathlib
 
 from tkinter import *
 from functools import partial
 import math
 
 def sendEmails(username, password):
-    file = pd.read_excel("./evidencias2020.xlsx")
-    destinatarios = file["Correo"]
+    filename = peticionArchivo()
+    file = pd.read_excel(filename)
+    destinatarios = file['Correo']
     nombres = file["Nombre"]
     apellidos = file["Apellidos"]
     horas_totales = file["Horas en total"]
@@ -47,7 +51,7 @@ def sendEmails(username, password):
             continue
 
         path = './Diplomas/DiplomasAsistencia/Diploma-Asistente-' + apellidos[i] + '-' + nombres[i] + '.pdf'
-        file_name = "Diploma-" + apellidos[i] + '-' + nombres[i] + '.pdf'
+        file_name = "Diploma-" + apellidos[i].replace(" ", "") + '-' + nombres[i].replace(" ", "") + '.pdf'
         diplomaPDF(path)
 
         # Creamos el objeto mensaje
@@ -67,11 +71,11 @@ def sendEmails(username, password):
         # Creamos un objeto MIME base
         adjunto_MIME = MIMEBase('application', 'octet-stream')
         # Y le cargamos el archivo adjunto
-        adjunto_MIME.set_payload((archivo_adjunto).read())
+        adjunto_MIME.set_payload(archivo_adjunto.read())
         # Codificamos el objeto en BASE64
         encoders.encode_base64(adjunto_MIME)
         # Agregamos una cabecera al objeto
-        aux="attachment; filename=" + file_name
+        aux = "attachment; filename=" + file_name
         adjunto_MIME.add_header('Content-Disposition', aux)
         # Y finalmente lo agregamos al mensaje
         mensaje.attach(adjunto_MIME)
@@ -84,8 +88,13 @@ def sendEmails(username, password):
 
     # Cerramos la conexión
     sesion_smtp.quit()
+    messagebox.showinfo("Se han enviado los correos correctamente.")
 
-
+def peticionArchivo():
+    filename = filedialog.askopenfilename(initialdir=pathlib.Path().absolute(),
+                                          title="Seleccione el fichero con los datos de asistencia",
+                                          filetypes=[("Excel files", "*.xlsx")])
+    return filename
 
 def login():
     # window
