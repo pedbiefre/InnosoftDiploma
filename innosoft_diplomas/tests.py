@@ -8,7 +8,7 @@ from innosoft_diplomas.diploma_excepcional import processPDFExcepcional, auxInit
 from innosoft_diplomas.edicion import actualizarParametros
 from innosoft_diplomas.parametros import Parametros
 
-from emails import *
+from innosoft_diplomas.emails import *
 import math
 
 class DiplomaAutomaticoTestCase(TestCase):
@@ -426,7 +426,6 @@ class EmailsTestCase(TestCase):
         nombres = pd.read_excel("./muestras_pruebas/tests6.xlsx")['Nombre']
         cont = 0
         for line in nombres:
-            print("La linea: " + str(line))
             if not(math.isnan(line)):
                 cont = cont + 1
         self.assertEqual(0, cont)
@@ -440,7 +439,6 @@ class EmailsTestCase(TestCase):
         apellidos = pd.read_excel("./muestras_pruebas/tests6.xlsx")['Apellidos']
         cont = 0
         for line in apellidos:
-            print("La linea: " + str(line))
             if not(math.isnan(line)):
                 cont = cont + 1
         self.assertEqual(0, cont)

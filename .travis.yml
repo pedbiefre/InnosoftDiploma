@@ -14,8 +14,10 @@ install:
 - pip install codacy-coverage
 
 script: 
+- python -m unittest innosoft_diplomas/tests.py
+
+after_success:
 - cd innosoft_diplomas
-- python tests.py
 - coverage run --branch --source=. ./tests.py --with-xunit
 - coverage xml
 - python-codacy-coverage -r coverage.xml
