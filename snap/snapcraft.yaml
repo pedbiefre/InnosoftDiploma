@@ -1,0 +1,18 @@
+name: innosoft-diplomas
+version: git
+summary: Diplomas de las jornadas Innosoft Days.
+description: Aplicación de escritorio para la generación automática y manual de diplomas para las Jornadas Innosoft Days de la Universidad de Sevilla.
+grade: stable
+confinement: strict
+base: core18
+
+apps:
+ innosoft-diplomas:
+  command: bin/innosoft-diplomas
+
+parts:
+ gnu-hello:
+  plugin: python
+  source: .
+  stage-packages:
+    - python-six
