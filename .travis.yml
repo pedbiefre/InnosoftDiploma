@@ -18,13 +18,13 @@ before_deploy:
 
 deploy:
   provider: releases
-    api_key: $RELEASE_TOKEN
-    file_glob: true
-    file: dist/*.exe
-    skip_cleanup: true
-    draft: true
-    on:
-      tags: true
+  api_key: $RELEASE_TOKEN
+  file_glob: true
+  file: dist/*.exe
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true
 
 after_success:
 - cd innosoft_diplomas
