@@ -11,7 +11,7 @@ apps:
   command: bin/innosoft-diplomas
 
 parts:
- gnu-hello:
+ innosoft-diplomas:
   plugin: python
   source: .
   stage-packages:
