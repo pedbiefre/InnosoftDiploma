@@ -6,11 +6,11 @@ before_install:
 env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
 install: 
+- pip install pyinstaller-4.1-py3-none-any.whl
+- pip install pyinstaller==4.1 --no-build-isolation
 - pip install -r requirements.txt
 - pip install coverage
 - pip install codacy-coverage
-- pip install pyinstaller-4.1-py3-none-any.whl
-- pip install pyinstaller==4.0 --no-build-isolation
 script: 
 - python -m unittest innosoft_diplomas/tests.py
 
