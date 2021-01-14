@@ -14,7 +14,7 @@ script:
 - python -m unittest innosoft_diplomas/tests.py
 
 before_deploy:
-- pyinstaller InnosoftDiplomas.spec
+- pyinstaller ./InnosoftDiplomas.spec
 
 deploy:
   provider: releases
