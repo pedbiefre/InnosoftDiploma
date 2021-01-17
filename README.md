@@ -82,3 +82,5 @@ Cuando iniciemos sesión, tendremos que indicar a la aplicación, de nuevo, qué
 La aplicación tardará un poco en enviar todos los emails, pero cuando lo haga obtendremos el siguiente mensaje:
 
 ![Envío correos](https://cdn.discordapp.com/attachments/646777871016263713/800330981503926312/Screenshot_14.png)
+
+Por último, en la parte superior de la interfaz de la aplicación, tenemos la opción de Salir, que cerrará la aplicación.
