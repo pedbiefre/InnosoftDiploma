@@ -22,30 +22,64 @@ Para exportar en Evidentia el archivo .xlsx requerido para generar automáticame
 ![Imagen de cómo generar .xlsx en Evidentia](https://cdn.discordapp.com/attachments/768136234287366175/778610418896863282/unknown.png)
 
 ### Generación de diplomas
-Para poder generar los distintos tipos de diplomas, deberemos haber completado los dos pasos anteriores. Ejecutaremos el archivo .exe y nos encontraremos la siguiente interfaz. En la que vemos tres opciones diferentes en la parte superior: Generación automática, Diplomas especiales y Salir.
+Para poder generar los distintos tipos de diplomas, deberemos haber completado los dos pasos anteriores. Ejecutaremos el archivo .exe y nos encontraremos la siguiente interfaz. En la que vemos cinco opciones diferentes (con submenús anidados) en la parte superior: Generación automática, Diplomas especiales, Opciones, Envío automático y Salir.
 
-![Interfaz InnosoftDiplomas](https://cdn.discordapp.com/attachments/646777871016263713/780451963530772490/Portada.png)
+![Interfaz InnosoftDiplomas](https://cdn.discordapp.com/attachments/646777871016263713/800330702238253066/Screenshot_1.png)
 
-Para generar los diplomas de las asistencias a las jornadas de Innosoft automáticamente, nos dirigiremos a la primera opción y nos saldrá un desplegable con el botón Generar.
+Para generar los diplomas de asistencia a las jornadas de Innosoft automáticamente, nos dirigiremos a la primera opción y nos saldrá un desplegable con dos opciones: Generar diplomas de Asistencia y Generar diplomas de Organizadores.
 
-![Botón Generar](https://cdn.discordapp.com/attachments/646777871016263713/780453357181075476/Generar.png)
+![Botón Generación automáticas](https://cdn.discordapp.com/attachments/646777871016263713/800330992409378826/Screenshot_2.png)
 
-Nos aparecerá una ventana del explorador para que elijamos el archivo que hemos generado previamente con Evidentia.
+Si elegimos la primera opción (Generar diplomas de asistencia) nos aparecerá la siguiente ventana con distintas opciones y parámetros.
 
-![Elegir archivo](https://cdn.discordapp.com/attachments/646777871016263713/780453718822354984/Elegir_archivo.png)
+![Diplomas asistencia](https://cdn.discordapp.com/attachments/646777871016263713/800330994132975626/Screenshot_3.png)
 
-Una vez elegido nos aparecerá una ventana confirmándonos que se han generado los diplomas con éxito en la carpeta "Diplomas" dentro de los archivos descargados.
+Tenemos dos opciones distintas para elegir el tipo de diploma que queremos generar: la primera sería un diploma básico en la que los parámetros se rellenarían dándole como fuente de información el archivo .xlsx que hemos generado con Evidentia.
 
-La siguiente opción que nos ofrece la aplicación es la generación de diplomas especiales, en concreto, tres tipos.
+![Archivo diploma básico](https://cdn.discordapp.com/attachments/646777871016263713/800330995635191870/Screenshot_4.png)
 
-![Tipos de diplomas](https://cdn.discordapp.com/attachments/646777871016263713/780454611517046794/Tipos_de_diplomas.png)
+La otra opción, sería generar un diploma personalizado con los parámetros que introduzcamos en cada uno de los campos, simplemente tendríamos que rellenarlos para crearlo.
+
+Si continuamos con la siguiente opción del menú superior, tenemos un menú desplegable con tres opciones: Diplomas extraordinarios, Diplomas ponente y Diplomas organizadores.
+
+![Tipos de diplomas](https://cdn.discordapp.com/attachments/646777871016263713/800331000302272522/Screenshot_8.png)
 
 El primer tipo es diplomas extraordinarios, y al pulsar en él nos muestra la siguiente interfaz:
 
-![Diplomas extraordinarios](https://cdn.discordapp.com/attachments/646777871016263713/780454985522872320/Diplomas_extraordinarios_1.png)
+![Diplomas extraordinarios](https://cdn.discordapp.com/attachments/646777871016263713/800330997756723210/Screenshot_5.png)
 
 Los otros dos tipos (ponentes y organizadores) nos ofrecen una ventana con la misma interfaz obteniendo como resultados diplomas diferentes:
 
-![Diplomas ponentes/organizadores](https://cdn.discordapp.com/attachments/646777871016263713/780455460637507624/Diploma_ponente.png)
+![Diplomas ponentes/organizadores](https://cdn.discordapp.com/attachments/646777871016263713/800330997982822411/Screenshot_6.png)
 
-Por último, tenemos el botón de salir de la aplicación, que la cerrará.
+En el menú Opciones, podemos cambiar la fuente de letras con la que se generarán los diplomas.
+
+![Opciones](https://cdn.discordapp.com/attachments/646777871016263713/800333863943012372/Screenshot_9.png)
+
+Por defecto, viene seleccionada la fuente Philosopher, pero tenemos dos fuentes más para elegir.
+
+![Fuentes de letra](https://cdn.discordapp.com/attachments/646777871016263713/800333868590825472/Screenshot_10.png)
+
+La penúltima opción, sirve para enviar correos a cada asistente con su diploma adjunto.
+
+![Emails](https://cdn.discordapp.com/attachments/646777871016263713/800334931829194772/Screenshot_11.png)
+
+Para hacer uso de esta funcionalidad, habrá que realizar una configuración previa en nuestra cuenta de Gmail. Dado que Google, por defecto, bloquea el acceso de aplicaciones externas para realizar este tipo de envíos 'masivos'.
+
+Tendremos que dirigirnos a la siguiente página web: https://myaccount.google.com/lesssecureapps e iniciar sesión con nuestra cuenta de Google. Nos encontraremos con la siguiente interfaz, y deberemos permitir el acceso a aplicaciones menos seguras.
+
+![Configuración Gmail](https://cdn.discordapp.com/attachments/646777871016263713/800330985320349726/Screenshot_15.png)
+
+Una vez hecho esto, podemos iniciar sesión en nuestra cuenta y enviar los correos. En la aplicación, veremos lo siguiente:
+
+![Login](https://cdn.discordapp.com/attachments/646777871016263713/800331032443355166/Screenshot_12.png)
+
+Cuando iniciemos sesión, tendremos que indicar a la aplicación, de nuevo, qué archivo debe utilizar como fuente de información para las direcciones de correo a las que enviar los diplomas previamente, generados. Deberemos elegir el archivo generado por Evidentia:
+
+![Archivo email](https://cdn.discordapp.com/attachments/646777871016263713/800331038467424276/Screenshot_13.png)
+
+La aplicación tardará un poco en enviar todos los emails, pero cuando lo haga obtendremos el siguiente mensaje:
+
+![Envío correos](https://cdn.discordapp.com/attachments/646777871016263713/800330981503926312/Screenshot_14.png)
+
+Por último, en la parte superior de la interfaz de la aplicación, tenemos la opción de Salir, que cerrará la aplicación.
