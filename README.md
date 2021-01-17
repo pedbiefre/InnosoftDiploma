@@ -40,3 +40,15 @@ Tenemos dos opciones distintas para elegir el tipo de diploma que queremos gener
 ![Archivo diploma básico](https://cdn.discordapp.com/attachments/646777871016263713/800330995635191870/Screenshot_4.png)
 
 La otra opción, sería generar un diploma personalizado con los parámetros que introduzcamos en cada uno de los campos, simplemente tendríamos que rellenarlos para crearlo.
+
+Si continuamos con la siguiente opción del menú superior, tenemos un menú desplegable con tres opciones: Diplomas extraordinarios, Diplomas ponente y Diplomas organizadores.
+
+![Tipos de diplomas](https://cdn.discordapp.com/attachments/646777871016263713/800331000302272522/Screenshot_8.png)
+
+El primer tipo es diplomas extraordinarios, y al pulsar en él nos muestra la siguiente interfaz:
+
+![Diplomas extraordinarios](https://cdn.discordapp.com/attachments/646777871016263713/800330997756723210/Screenshot_5.png)
+
+Los otros dos tipos (ponentes y organizadores) nos ofrecen una ventana con la misma interfaz obteniendo como resultados diplomas diferentes:
+
+![Diplomas ponentes/organizadores](https://cdn.discordapp.com/attachments/646777871016263713/800330997982822411/Screenshot_6.png)
