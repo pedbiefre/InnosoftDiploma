@@ -52,3 +52,11 @@ El primer tipo es diplomas extraordinarios, y al pulsar en él nos muestra la si
 Los otros dos tipos (ponentes y organizadores) nos ofrecen una ventana con la misma interfaz obteniendo como resultados diplomas diferentes:
 
 ![Diplomas ponentes/organizadores](https://cdn.discordapp.com/attachments/646777871016263713/800330997982822411/Screenshot_6.png)
+
+En el menú Opciones, podemos cambiar la fuente de letras con la que se generarán los diplomas.
+
+![Opciones](https://cdn.discordapp.com/attachments/646777871016263713/800333863943012372/Screenshot_9.png)
+
+Por defecto, viene seleccionada la fuente Philosopher, pero tenemos dos fuentes más para elegir.
+
+![Fuentes de letra](https://cdn.discordapp.com/attachments/646777871016263713/800333868590825472/Screenshot_10.png)
