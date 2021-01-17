@@ -1,20 +1,32 @@
-dist: xenial
-
-language: python 
-python: 
-- "3.6"
-
+os: windows
+language: shell
 before_install:
-  - "pip install -U pip"
-  - "export PYTHONPATH=$PYTHONPATH:$(pwd)"
+- choco install python --version=3.7
+- python -m pip install --upgrade pip
+env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 
 install: 
+- pip install pyinstaller-4.1-py3-none-any.whl
+- pip install pyinstaller==4.1 --no-build-isolation
 - pip install -r requirements.txt
 - pip install coverage
 - pip install codacy-coverage
-
 script: 
 - python -m unittest innosoft_diplomas/tests.py
+
+before_deploy:
+- cd ..
+- pyinstaller ./InnosoftDiplomas.spec --noconfirm
+
+deploy:
+  provider: releases
+  api_key: $RELEASE_TOKEN
+  file_glob: true
+  file: dist/*.exe
+  skip_cleanup: true
+  draft: true
+  on:
+    tags: true
 
 after_success:
 - cd innosoft_diplomas
