@@ -25,3 +25,17 @@ Para exportar en Evidentia el archivo .xlsx requerido para generar automáticame
 Para poder generar los distintos tipos de diplomas, deberemos haber completado los dos pasos anteriores. Ejecutaremos el archivo .exe y nos encontraremos la siguiente interfaz. En la que vemos cinco opciones diferentes (con submenús anidados) en la parte superior: Generación automática, Diplomas especiales, Opciones, Envío automático y Salir.
 
 ![Interfaz InnosoftDiplomas](https://cdn.discordapp.com/attachments/646777871016263713/800330702238253066/Screenshot_1.png)
+
+Para generar los diplomas de asistencia a las jornadas de Innosoft automáticamente, nos dirigiremos a la primera opción y nos saldrá un desplegable con dos opciones: Generar diplomas de Asistencia y Generar diplomas de Organizadores.
+
+![Botón Generación automáticas](https://cdn.discordapp.com/attachments/646777871016263713/800330992409378826/Screenshot_2.png)
+
+Si elegimos la primera opción (Generar diplomas de asistencia) nos aparecerá la siguiente ventana con distintas opciones y parámetros.
+
+![Diplomas asistencia](https://cdn.discordapp.com/attachments/646777871016263713/800330994132975626/Screenshot_3.png)
+
+Tenemos dos opciones distintas para elegir el tipo de diploma que queremos generar: la primera sería un diploma básico en la que los parámetros se rellenarían dándole como fuente de información el archivo .xlsx que hemos generado con Evidentia.
+
+![Archivo diploma básico](https://cdn.discordapp.com/attachments/646777871016263713/800330995635191870/Screenshot_4.png)
+
+La otra opción, sería generar un diploma personalizado con los parámetros que introduzcamos en cada uno de los campos, simplemente tendríamos que rellenarlos para crearlo.
