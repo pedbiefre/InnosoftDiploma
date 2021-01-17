@@ -60,4 +60,26 @@ Por defecto, viene seleccionada la fuente Philosopher, pero tenemos dos fuentes 
 
 ![Fuentes de letra](https://cdn.discordapp.com/attachments/646777871016263713/800333868590825472/Screenshot_10.png)
 
+La penúltima opción, sirve para enviar correos a cada asistente con su diploma adjunto.
+
+![Emails](https://cdn.discordapp.com/attachments/646777871016263713/800334931829194772/Screenshot_11.png)
+
+Para hacer uso de esta funcionalidad, habrá que realizar una configuración previa en nuestra cuenta de Gmail. Dado que Google, por defecto, bloquea el acceso de aplicaciones externas para realizar este tipo de envíos 'masivos'.
+
+Tendremos que dirigirnos a la siguiente página web: https://myaccount.google.com/lesssecureapps e iniciar sesión con nuestra cuenta de Google. Nos encontraremos con la siguiente interfaz, y deberemos permitir el acceso a aplicaciones menos seguras.
+
+![Configuración Gmail](https://cdn.discordapp.com/attachments/646777871016263713/800330985320349726/Screenshot_15.png)
+
+Una vez hecho esto, podemos iniciar sesión en nuestra cuenta y enviar los correos. En la aplicación, veremos lo siguiente:
+
+![Login](https://cdn.discordapp.com/attachments/646777871016263713/800331032443355166/Screenshot_12.png)
+
+Cuando iniciemos sesión, tendremos que indicar a la aplicación, de nuevo, qué archivo debe utilizar como fuente de información para las direcciones de correo a las que enviar los diplomas previamente, generados. Deberemos elegir el archivo generado por Evidentia:
+
+![Archivo email](https://cdn.discordapp.com/attachments/646777871016263713/800331038467424276/Screenshot_13.png)
+
+La aplicación tardará un poco en enviar todos los emails, pero cuando lo haga obtendremos el siguiente mensaje:
+
+![Envío correos](https://cdn.discordapp.com/attachments/646777871016263713/800330981503926312/Screenshot_14.png)
+
 
