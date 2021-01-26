@@ -8,7 +8,7 @@ from PIL import ImageTk, Image
 import PIL
 
 from innosoft_diplomas.diploma_automatico import  diplomasGeneradorOrganizador, formularioAutomaticoAsistencia
-from innosoft_diplomas.diploma_excepcional import diplomasExc
+from innosoft_diplomas.diploma_excepcional import diplomasExc, diplomasGenericos
 from innosoft_diplomas.edicion import selecFuente
 from innosoft_diplomas.parametros import *
 from innosoft_diplomas.emails import *
@@ -32,6 +32,7 @@ def ventana_principal():
     menudatos.add_command(label="Diplomas Extraordinarios", command= lambda: diplomasExc("extraordinario", parametros))
     menudatos.add_command(label="Diplomas Ponentes", command= lambda: diplomasExc("ponente", parametros))
     menudatos.add_command(label="Diplomas Organizadores", command= lambda: diplomasExc("organizador", parametros))
+    menudatos.add_command(label="Diplomas Genéricos", command=lambda: diplomasGenericos(parametros))
     menu.add_cascade(label="Diplomas Especiales", menu=menudatos)
 
     #OPCIONES DE DIPLOMA

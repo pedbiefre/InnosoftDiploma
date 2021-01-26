@@ -4,6 +4,7 @@
 import sys
 import os
 import time
+import uuid
 from tkinter import *
 from tkinter import messagebox
 
@@ -20,6 +21,74 @@ def auxInitParams(nombre, apellidos, motivo, fecha):
     res.append(fecha)
     return res
 
+
+def processDiplomaGenerico(nombre, motivo, fecha, numeroDiplomas, parametros):
+    motivo = str(motivo.get())
+    fecha = str(fecha.get())
+
+    path = "./Diplomas/DiplomasGenericos/Diploma Generico "
+    resource = "./resources/images/Diploma Generico.jpg"
+    title = 'Diploma Genérico'
+
+    for c in range(0, int(str(numeroDiplomas.get()))):
+        identificador = uuid.uuid4()
+        c = canvas.Canvas(path + "-" + str(identificador) + ".pdf", pagesize=landscape(A4))
+        c.drawImage(resource, 0, 0, width=11.6 * inch, height=8.4 * inch)
+
+        # Se lee de parametros la fuente seleccionada
+        if parametros.get_fuente() == 'Philosopher':
+            pdfmetrics.registerFont(TTFont('Philosopher', './resources/fonts/Philosopher-Italic.ttf'))
+            c.setFont('Philosopher', 27)
+        elif parametros.get_fuente() == 'Abecedary':
+            pdfmetrics.registerFont(TTFont('Abecedary', './resources/fonts/Abecedary Italic.ttf'))
+            c.setFont('Abecedary', 27)
+        elif parametros.get_fuente() == 'AndikaNewBasic':
+            pdfmetrics.registerFont(TTFont('AndikaNewBasic', './resources/fonts/AndikaNewBasic-I.ttf'))
+            c.setFont('AndikaNewBasic', 27)
+
+        c.setTitle(title)
+        c.drawCentredString(5.75 * inch, 4.7 * inch, nombre)
+        c.drawCentredString(5.75 * inch, 3.7 * inch, motivo)
+        c.drawCentredString(5.75 * inch, 2.7 * inch, fecha)
+        c.drawCentredString(5.75 * inch, 1.9 * inch, str(identificador))
+        c.save()
+
+    messagebox.showinfo("Diplomas creados", "Los diplomas se han generado correctamente ")
+
+
+def diplomasGenericos(parametros):
+    wind1 = Toplevel()
+    motivo = StringVar()
+    numeroDiplomas = StringVar()
+    fecha = StringVar(wind1, value=time.strftime("%d/%m/%y"))
+    # Se define la localización de cada uno de los parámetros del diploma en la ventana de Tkinter
+
+    label = Label(wind1, text="Número de diplomas")
+    label.grid(row=0, column=0, sticky=W, padx=5, pady=5)
+
+    entry = Entry(wind1, textvariable=numeroDiplomas)
+    entry.grid(row=0, column=1, padx=5, pady=5, ipadx=25)
+
+    label3 = Label(wind1, text="Nombre de la Charla/Evento")
+    label3.grid(row=2, column=0, sticky=W, padx=5, pady=5)
+
+    entry = Entry(wind1, textvariable=motivo)
+    entry.grid(row=2, column=1, padx=5, pady=5, ipadx=25)
+
+    label4 = Label(wind1, text="Fecha")
+    label4.grid(row=3, column=0, sticky=W, padx=5, pady=5)
+
+    entry = Entry(wind1, textvariable=fecha)
+    entry.grid(row=3, column=1, padx=5, pady=5, ipadx=25)
+
+    nombre = "Asistencia"
+
+    boton = Button(wind1, text="Procesar",
+                   command=lambda: processDiplomaGenerico(nombre, motivo, fecha, numeroDiplomas, parametros))
+    boton.grid(row=5, column=0)
+
+    wind1.geometry('390x160')
+    wind1.iconbitmap("./resources/images/innosoft.ico")
 #Función que llama a la generación de diplomas excepcionales y selecciona la plantilla en función del tipo de diploma seleccionado
 def processPDFExcepcional(nombre, apellidos,motivo,fecha,tipo, parametros):
     try:
