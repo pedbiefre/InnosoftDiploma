@@ -52,6 +52,10 @@ Los otros dos tipos (ponentes y organizadores) nos ofrecen una ventana con la mi
 
 ![Diplomas ponentes/organizadores](https://cdn.discordapp.com/attachments/646777871016263713/800330997982822411/Screenshot_6.png)
 
+Como funcionalidad extra, tenemos la opción de Diplomas Genéricos, que nos creará un número X (indicado por el usuario) de diplomas con el nombre estático 'Asistencia', el nombre y fecha de la charla y un identificador único de cada diploma. En la ventana que nos aparece, indicaremos el número de diplomas a generar, el nombre y la fecha de la charla.
+
+![Diplomas Genéricos](https://cdn.discordapp.com/attachments/646777871016263713/803670937709969458/Screenshot_1.png)
+
 En el menú Opciones, podemos cambiar la fuente de letras con la que se generarán los diplomas.
 
 ![Opciones](https://cdn.discordapp.com/attachments/646777871016263713/800333863943012372/Screenshot_9.png)
